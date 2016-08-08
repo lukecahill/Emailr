@@ -8,9 +8,12 @@ namespace Email_Application {
 	public partial class Form1 : Form {
 		public Form1() {
 			InitializeComponent();
+			progressBar.Maximum = 100;
+			progressBar.Minimum = 0;
+			progressBar.Step = 1;
 		}
 
-		public void FetchMessages() {
+		private void FetchMessages() {
 			using(var client = new ImapClient()) {
 				client.Connect("imap.gmail.com", 993, true, true);
 				var username = "";
@@ -21,13 +24,14 @@ namespace Email_Application {
 			}
 		}
 
-		public void GetMessages(ImapClient client) {
+		private void GetMessages(ImapClient client) {
 			if(client.IsConnected) {
 				client.SelectMailbox("inbox");
 				var messages = GetUnseenMessages(client);
 				var count = messages.Count();
 
 				if(count > 0) {
+					progressBar.Maximum = count;
 					LoopThroughMessages(client, messages, count);
 				} else {
 					Debug.WriteLine("No new mail has been found.");
@@ -41,15 +45,25 @@ namespace Email_Application {
 		}
 
 		private void LoopThroughMessages(ImapClient client, Lazy<MailMessage>[] messages, int count) {
-			var j = 0;
 			MailMessage[] mailMessage = new MailMessage[count];
+			var j = 0;
 			foreach (var item in messages) {
 				var message = item.Value.Body;
 				mailMessage[j] = item.Value;
-				MessageBox.Show(item.Value.Body);
+				richTextBox2.Text = item.Value.Subject;
+				richTextBox1.Text = item.Value.Body;
+				progressBar.PerformStep();
 				j++;
+
+				var i = new Mail {
+					MailId = 1,
+					MailBody = item.Value.Body,
+					MailSubject = item.Value.Subject,
+					MailToAddress = item.Value.To,
+					MailCCAddresses = item.Value.Cc
+				};
 			}
-			client.SetFlags(Flags.Seen, mailMessage);
+			//client.SetFlags(Flags.Seen, mailMessage);
 			Debug.WriteLine("Mail has been fetched successfully!");
 		}
 
@@ -64,6 +78,10 @@ namespace Email_Application {
 
 		private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
 			Environment.Exit(0);
+		}
+
+		private void fetchNewMailButton_Click(object sender, EventArgs e) {
+			FetchMessages();
 		}
 	}
 }
