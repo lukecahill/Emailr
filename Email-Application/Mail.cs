@@ -1,5 +1,4 @@
-﻿using AE.Net.Mail;
-using System.Net.Mail;
+﻿using System.Net.Mail;
 using System.Collections.Generic;
 
 namespace Email_Application {

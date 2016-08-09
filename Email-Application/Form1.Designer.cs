@@ -1,5 +1,5 @@
 ﻿namespace Email_Application {
-	partial class Form1 {
+	partial class emailrForm {
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -34,6 +34,7 @@
 			this.richTextBox1 = new System.Windows.Forms.RichTextBox();
 			this.richTextBox2 = new System.Windows.Forms.RichTextBox();
 			this.fetchNewMailButton = new System.Windows.Forms.Button();
+			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			this.SuspendLayout();
@@ -42,7 +43,8 @@
 			// 
 			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.mailToolStripMenuItem});
+            this.mailToolStripMenuItem,
+            this.helpToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
 			this.menuStrip1.Size = new System.Drawing.Size(688, 24);
@@ -129,7 +131,14 @@
 			this.fetchNewMailButton.UseVisualStyleBackColor = true;
 			this.fetchNewMailButton.Click += new System.EventHandler(this.fetchNewMailButton_Click);
 			// 
-			// Form1
+			// helpToolStripMenuItem
+			// 
+			this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+			this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+			this.helpToolStripMenuItem.Text = "Help";
+			this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
+			// 
+			// emailrForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -140,7 +149,8 @@
 			this.Controls.Add(this.statusStrip1);
 			this.Controls.Add(this.menuStrip1);
 			this.MainMenuStrip = this.menuStrip1;
-			this.Name = "Form1";
+			this.MaximizeBox = false;
+			this.Name = "emailrForm";
 			this.Text = "Emailr";
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
@@ -164,6 +174,7 @@
 		private System.Windows.Forms.RichTextBox richTextBox1;
 		private System.Windows.Forms.RichTextBox richTextBox2;
 		private System.Windows.Forms.Button fetchNewMailButton;
+		private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
 	}
 }
 
