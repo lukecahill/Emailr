@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using MongoDB.Driver;
 using MongoDB.Bson;
@@ -23,6 +24,9 @@ namespace Email_Application {
 					LoopThroughMessages(client, messages, count, subject, body, bar, emailList, emailCount);
 				} else {
 					Debug.WriteLine("No new mail has been found.");
+					bar.Value = bar.Maximum;
+					Thread.Sleep(2000);
+					bar.Value = 0;
 				}
 			}
 		}
@@ -33,10 +37,12 @@ namespace Email_Application {
 
 		public void LoopThroughMessages(ImapClient client, Lazy<MailMessage>[] messages, int count, RichTextBox subject, RichTextBox body, ToolStripProgressBar bar, ListBox emailList, int emailCount) {
 			var collection = _database.GetCollection<BsonDocument>("mycollection");
+			var i = 0;
 			foreach (var item in messages) {
-				var message = item.Value.Body;
+				i++;
 
 				var document = new BsonDocument {
+					{ "temp_id", i },
 					{ "body", item.Value.Body },
 					{ "subject", item.Value.Subject },
 					{ "to", item.Value.To.ToString() },
@@ -44,7 +50,7 @@ namespace Email_Application {
 				};
 				collection.InsertOneAsync(document);
 
-				var email = new EmailListBoxItem(document["subject"].ToString(), document["body"].ToString(), document["to"].ToString(), document["cc"].ToString());
+				var email = new EmailListBoxItem(document["temp_id"].ToString(), document["subject"].ToString(), document["body"].ToString(), document["to"].ToString(), document["cc"].ToString());
 				emailList.Items.Add(email);
 				bar.PerformStep();
 				emailCount++;

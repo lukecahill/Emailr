@@ -116,16 +116,20 @@
 			// 
 			// richTextBox1
 			// 
+			this.richTextBox1.BackColor = System.Drawing.Color.White;
 			this.richTextBox1.Location = new System.Drawing.Point(270, 115);
 			this.richTextBox1.Name = "richTextBox1";
+			this.richTextBox1.ReadOnly = true;
 			this.richTextBox1.Size = new System.Drawing.Size(407, 434);
 			this.richTextBox1.TabIndex = 3;
 			this.richTextBox1.Text = "";
 			// 
 			// richTextBox2
 			// 
+			this.richTextBox2.BackColor = System.Drawing.Color.White;
 			this.richTextBox2.Location = new System.Drawing.Point(270, 77);
 			this.richTextBox2.Name = "richTextBox2";
+			this.richTextBox2.ReadOnly = true;
 			this.richTextBox2.Size = new System.Drawing.Size(407, 32);
 			this.richTextBox2.TabIndex = 4;
 			this.richTextBox2.Text = "";
@@ -149,6 +153,7 @@
 			this.emailList.Size = new System.Drawing.Size(252, 472);
 			this.emailList.TabIndex = 6;
 			this.emailList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.emailList_MouseDoubleClick);
+			this.emailList.MouseUp += new System.Windows.Forms.MouseEventHandler(this.emailList_MouseUp);
 			// 
 			// emailListCountLabel
 			// 

@@ -11,6 +11,9 @@ namespace Email_Application {
 		FetchMail fetch = null;
 		string server = "gmail";
 		public int emailCount = 0;
+
+		ContextMenu emailListContextMenu = new ContextMenu();
+
 		protected static IMongoClient _client;
 		protected static IMongoDatabase _database;
 
@@ -26,22 +29,61 @@ namespace Email_Application {
 			progressBar.Step = 1;
 			emailList.DrawMode = DrawMode.Normal;
 
+			var itemOpen = new MenuItem();
+			itemOpen.Text = "&Open";
+
+			var itemDelete = new MenuItem();
+			itemDelete.Text = "&Delete";
+
+			var itemReply = new MenuItem();
+			itemReply.Text = "&Reply";
+
+			itemOpen.Click += ItemOpen_Click;
+			itemDelete.Click += ItemDelete_Click;
+			itemReply.Click += ItemReply_Click;
+
+			emailListContextMenu.MenuItems.Add(itemOpen);
+			emailListContextMenu.MenuItems.Add(itemDelete);
+			emailListContextMenu.MenuItems.Add(itemReply);
+			emailList.ContextMenu = emailListContextMenu;
 			queryMongo();
 		}
 
+		private void ItemReply_Click(object sender, EventArgs e) {
+			Debug.WriteLine("Not impletemed yet.");
+			throw new NotImplementedException();
+
+			var mail = new Mail();
+			mail.sendMail("", "", "", "");
+		}
+
+		private void ItemDelete_Click(object sender, EventArgs e) {
+			if (emailList.SelectedIndex >= 0) {
+				deleteEmail();
+			}
+		}
+
+		private void ItemOpen_Click(object sender, EventArgs e) {
+			if (emailList.SelectedIndex >= 0) {
+				var item = (EmailListBoxItem)emailList.SelectedItem;
+				richTextBox1.Text = item.Body;
+				richTextBox2.Text = item.Subject;
+			}
+		}
+
 		private void FetchMessages() {
-			using(var client = new ImapClient()) {
+			using (var client = new ImapClient()) {
 				var username = "";
 				var password = "";
 				var mailbox = "";
 
-				if(server == "gmail") {
+				if (server == "gmail") {
 					client.Connect("imap.gmail.com", 993, true, true);
 					mailbox = "inbox";
-				} else if(server == "outlook") {
+				} else if (server == "outlook") {
 					client.Connect("outlook.office365.com", 993, true, true);
 					mailbox = "Inbox";
-				} else if(server == "yahoo") {
+				} else if (server == "yahoo") {
 					client.Connect("", 993, true, true);
 					mailbox = "Inbox";
 				}
@@ -59,13 +101,25 @@ namespace Email_Application {
 				while (await cursor.MoveNextAsync()) {
 					var batch = cursor.Current;
 					foreach (var document in batch) {
-						var email = new EmailListBoxItem(document["subject"].ToString(), document["body"].ToString(), document["to"].ToString(), document["cc"].ToString());
+						var email = new EmailListBoxItem(document["_id"].ToString(), document["subject"].ToString(), document["body"].ToString(), document["to"].ToString(), document["cc"].ToString());
 						emailList.Items.Add(email);
 						emailCount++;
 					}
 				}
 			}
 			emailListCountLabel.Text = $"Number of emails: {emailCount}";
+		}
+
+		public async void deleteEmail() {
+			// edit this to instead remove by the ID of the document.
+			var item = (EmailListBoxItem)emailList.SelectedItem;
+			var id = item.EmailId;
+
+			var collection = _database.GetCollection<BsonDocument>("mycollection");
+			var filter = Builders<BsonDocument>.Filter.Eq("_id", id);
+			var result = await collection.DeleteManyAsync(filter);
+
+			// should also then update the listbox and the current count.
 		}
 
 		private void fetchNewToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -82,7 +136,9 @@ namespace Email_Application {
 		}
 
 		private void fetchNewMailButton_Click(object sender, EventArgs e) {
+			fetchNewMailButton.Enabled = false;
 			FetchMessages();
+			fetchNewMailButton.Enabled = true;
 		}
 
 		private void helpToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -93,6 +149,17 @@ namespace Email_Application {
 			var item = (EmailListBoxItem)emailList.SelectedItem;
 			richTextBox1.Text = item.Body;
 			richTextBox2.Text = item.Subject;
+		}
+
+		private void emailList_MouseUp(object sender, MouseEventArgs e) {
+			if (e.Button == MouseButtons.Right) {
+				Debug.WriteLine("right click");
+				var item = emailList.IndexFromPoint(e.Location);
+				if (item >= 0) {
+					emailList.SelectedItem = item;
+					emailListContextMenu.Show(emailList, e.Location);
+				}
+			}
 		}
 	}
 }
