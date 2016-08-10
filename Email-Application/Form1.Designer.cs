@@ -142,6 +142,7 @@
 			// 
 			// emailList
 			// 
+			this.emailList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
 			this.emailList.FormattingEnabled = true;
 			this.emailList.Location = new System.Drawing.Point(12, 77);
 			this.emailList.Name = "emailList";

@@ -17,13 +17,15 @@ namespace Email_Application {
 
 		public emailrForm() {
 			InitializeComponent();
+
+			fetch = new FetchMail();
+			_client = new MongoClient();
+			_database = _client.GetDatabase("test");
+
 			progressBar.Maximum = 100;
 			progressBar.Minimum = 0;
 			progressBar.Step = 1;
-			fetch = new FetchMail();
-
-			_client = new MongoClient();
-			_database = _client.GetDatabase("test");
+			emailList.DrawMode = DrawMode.Normal;
 		}
 
 		private void FetchMessages() {
