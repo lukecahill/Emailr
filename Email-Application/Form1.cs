@@ -10,7 +10,7 @@ namespace Email_Application {
 
 		FetchMail fetch = null;
 		string server = "gmail";
-		int emailCount = 0;
+		public int emailCount = 0;
 		protected static IMongoClient _client;
 		protected static IMongoDatabase _database;
 
@@ -25,6 +25,8 @@ namespace Email_Application {
 			progressBar.Minimum = 0;
 			progressBar.Step = 1;
 			emailList.DrawMode = DrawMode.Normal;
+
+			queryMongo();
 		}
 
 		private void FetchMessages() {
@@ -45,7 +47,7 @@ namespace Email_Application {
 				}
 
 				client.Login(username, password);
-				fetch.GetMessages(client, mailbox, progressBar, richTextBox2, richTextBox1);
+				fetch.GetMessages(client, mailbox, progressBar, richTextBox2, richTextBox1, emailList, emailCount);
 			}
 		}
 
@@ -80,8 +82,7 @@ namespace Email_Application {
 		}
 
 		private void fetchNewMailButton_Click(object sender, EventArgs e) {
-			//FetchMessages();
-			queryMongo();
+			FetchMessages();
 		}
 
 		private void helpToolStripMenuItem_Click(object sender, EventArgs e) {
