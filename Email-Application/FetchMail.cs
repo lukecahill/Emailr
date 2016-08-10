@@ -37,12 +37,8 @@ namespace Email_Application {
 				bar.PerformStep();
 				j++;
 
-				var i = new Mail {
-					MailId = 1,
-					MailBody = item.Value.Body,
-					MailSubject = item.Value.Subject,
-					MailToAddress = item.Value.To,
-					MailCCAddresses = item.Value.Cc
+				var document = new BsonDocument {
+
 				};
 			}
 			//client.SetFlags(Flags.Seen, mailMessage);
