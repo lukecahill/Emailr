@@ -148,6 +148,7 @@
 			this.emailList.Name = "emailList";
 			this.emailList.Size = new System.Drawing.Size(252, 472);
 			this.emailList.TabIndex = 6;
+			this.emailList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.emailList_MouseDoubleClick);
 			// 
 			// emailListCountLabel
 			// 

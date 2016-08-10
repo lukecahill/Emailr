@@ -1,5 +1,4 @@
 ﻿using AE.Net.Mail;
-using FluentAssertions;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
@@ -58,7 +57,8 @@ namespace Email_Application {
 				while (await cursor.MoveNextAsync()) {
 					var batch = cursor.Current;
 					foreach (var document in batch) {
-						emailList.Items.Add(document["subject"].ToString());
+						var email = new EmailListBoxItem(document["subject"].ToString(), document["body"].ToString(), document["to"].ToString(), document["cc"].ToString());
+						emailList.Items.Add(email);
 						emailCount++;
 					}
 				}
@@ -86,6 +86,12 @@ namespace Email_Application {
 
 		private void helpToolStripMenuItem_Click(object sender, EventArgs e) {
 			MessageBox.Show("No point looking here for help. IDK what is happening here at the moment...");
+		}
+
+		private void emailList_MouseDoubleClick(object sender, MouseEventArgs e) {
+			var item = (EmailListBoxItem)emailList.SelectedItem;
+			richTextBox1.Text = item.Body;
+			richTextBox2.Text = item.Subject;
 		}
 	}
 }
