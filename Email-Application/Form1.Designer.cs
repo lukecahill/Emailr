@@ -29,12 +29,14 @@
 			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.mailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.fetchNewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.progressBar = new System.Windows.Forms.ToolStripProgressBar();
 			this.richTextBox1 = new System.Windows.Forms.RichTextBox();
 			this.richTextBox2 = new System.Windows.Forms.RichTextBox();
 			this.fetchNewMailButton = new System.Windows.Forms.Button();
-			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.emailList = new System.Windows.Forms.ListBox();
+			this.emailListCountLabel = new System.Windows.Forms.Label();
 			this.menuStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			this.SuspendLayout();
@@ -63,14 +65,14 @@
 			// newToolStripMenuItem
 			// 
 			this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-			this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.newToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
 			this.newToolStripMenuItem.Text = "&New";
 			this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
 			// 
 			// exitToolStripMenuItem
 			// 
 			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-			this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.exitToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
 			this.exitToolStripMenuItem.Text = "&Exit";
 			this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
 			// 
@@ -85,9 +87,16 @@
 			// fetchNewToolStripMenuItem
 			// 
 			this.fetchNewToolStripMenuItem.Name = "fetchNewToolStripMenuItem";
-			this.fetchNewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.fetchNewToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
 			this.fetchNewToolStripMenuItem.Text = "&Fetch new";
 			this.fetchNewToolStripMenuItem.Click += new System.EventHandler(this.fetchNewToolStripMenuItem_Click);
+			// 
+			// helpToolStripMenuItem
+			// 
+			this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+			this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+			this.helpToolStripMenuItem.Text = "Help";
+			this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
 			// 
 			// statusStrip1
 			// 
@@ -107,17 +116,17 @@
 			// 
 			// richTextBox1
 			// 
-			this.richTextBox1.Location = new System.Drawing.Point(12, 115);
+			this.richTextBox1.Location = new System.Drawing.Point(270, 115);
 			this.richTextBox1.Name = "richTextBox1";
-			this.richTextBox1.Size = new System.Drawing.Size(665, 440);
+			this.richTextBox1.Size = new System.Drawing.Size(407, 434);
 			this.richTextBox1.TabIndex = 3;
 			this.richTextBox1.Text = "";
 			// 
 			// richTextBox2
 			// 
-			this.richTextBox2.Location = new System.Drawing.Point(12, 77);
+			this.richTextBox2.Location = new System.Drawing.Point(270, 77);
 			this.richTextBox2.Name = "richTextBox2";
-			this.richTextBox2.Size = new System.Drawing.Size(665, 32);
+			this.richTextBox2.Size = new System.Drawing.Size(407, 32);
 			this.richTextBox2.TabIndex = 4;
 			this.richTextBox2.Text = "";
 			// 
@@ -131,18 +140,29 @@
 			this.fetchNewMailButton.UseVisualStyleBackColor = true;
 			this.fetchNewMailButton.Click += new System.EventHandler(this.fetchNewMailButton_Click);
 			// 
-			// helpToolStripMenuItem
+			// emailList
 			// 
-			this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-			this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-			this.helpToolStripMenuItem.Text = "Help";
-			this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
+			this.emailList.FormattingEnabled = true;
+			this.emailList.Location = new System.Drawing.Point(12, 77);
+			this.emailList.Name = "emailList";
+			this.emailList.Size = new System.Drawing.Size(252, 472);
+			this.emailList.TabIndex = 6;
+			// 
+			// emailListCountLabel
+			// 
+			this.emailListCountLabel.AutoSize = true;
+			this.emailListCountLabel.Location = new System.Drawing.Point(12, 43);
+			this.emailListCountLabel.Name = "emailListCountLabel";
+			this.emailListCountLabel.Size = new System.Drawing.Size(0, 13);
+			this.emailListCountLabel.TabIndex = 7;
 			// 
 			// emailrForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(688, 580);
+			this.Controls.Add(this.emailListCountLabel);
+			this.Controls.Add(this.emailList);
 			this.Controls.Add(this.fetchNewMailButton);
 			this.Controls.Add(this.richTextBox2);
 			this.Controls.Add(this.richTextBox1);
@@ -175,6 +195,8 @@
 		private System.Windows.Forms.RichTextBox richTextBox2;
 		private System.Windows.Forms.Button fetchNewMailButton;
 		private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+		private System.Windows.Forms.ListBox emailList;
+		private System.Windows.Forms.Label emailListCountLabel;
 	}
 }
 

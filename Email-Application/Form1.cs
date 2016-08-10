@@ -1,4 +1,7 @@
 ﻿using AE.Net.Mail;
+using FluentAssertions;
+using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Diagnostics;
 using System.Windows.Forms;
@@ -8,12 +11,19 @@ namespace Email_Application {
 
 		FetchMail fetch = null;
 		string server = "gmail";
+		int emailCount = 0;
+		protected static IMongoClient _client;
+		protected static IMongoDatabase _database;
+
 		public emailrForm() {
 			InitializeComponent();
 			progressBar.Maximum = 100;
 			progressBar.Minimum = 0;
 			progressBar.Step = 1;
 			fetch = new FetchMail();
+
+			_client = new MongoClient();
+			_database = _client.GetDatabase("test");
 		}
 
 		private void FetchMessages() {
@@ -36,7 +46,22 @@ namespace Email_Application {
 				client.Login(username, password);
 				fetch.GetMessages(client, mailbox, progressBar, richTextBox2, richTextBox1);
 			}
+		}
 
+		public async void queryMongo() {
+			emailCount = 0;
+			var collection = _database.GetCollection<BsonDocument>("mycollection");
+			var filter = new BsonDocument();
+			using (var cursor = await collection.FindAsync(filter)) {
+				while (await cursor.MoveNextAsync()) {
+					var batch = cursor.Current;
+					foreach (var document in batch) {
+						emailList.Items.Add(document["subject"].ToString());
+						emailCount++;
+					}
+				}
+			}
+			emailListCountLabel.Text = $"Number of emails: {emailCount}";
 		}
 
 		private void fetchNewToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -53,7 +78,8 @@ namespace Email_Application {
 		}
 
 		private void fetchNewMailButton_Click(object sender, EventArgs e) {
-			FetchMessages();
+			//FetchMessages();
+			queryMongo();
 		}
 
 		private void helpToolStripMenuItem_Click(object sender, EventArgs e) {
