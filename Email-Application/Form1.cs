@@ -71,6 +71,9 @@ namespace Email_Application {
 			}
 		}
 
+		/// <summary>
+		/// Starts the fetching of new messages. Client logs in here.
+		/// </summary>
 		private void FetchMessages() {
 			using (var client = new ImapClient()) {
 				var username = "";
@@ -93,6 +96,9 @@ namespace Email_Application {
 			}
 		}
 
+		/// <summary>
+		/// Return all of the items found in the database, and insert them into a custom listbox item.
+		/// </summary>
 		public async void queryMongo() {
 			emailCount = 0;
 			var collection = _database.GetCollection<BsonDocument>("mycollection");
@@ -135,6 +141,9 @@ namespace Email_Application {
 			Environment.Exit(0);
 		}
 
+		/// <summary>
+		/// Gets new email from the specified server. Disables the fetch new mail button while doing this.
+		/// </summary>
 		private void fetchNewMailButton_Click(object sender, EventArgs e) {
 			fetchNewMailButton.Enabled = false;
 			FetchMessages();
