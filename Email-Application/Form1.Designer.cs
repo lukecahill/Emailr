@@ -32,11 +32,12 @@
 			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.progressBar = new System.Windows.Forms.ToolStripProgressBar();
-			this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-			this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+			this.messageBox = new System.Windows.Forms.RichTextBox();
+			this.subjectBox = new System.Windows.Forms.RichTextBox();
 			this.fetchNewMailButton = new System.Windows.Forms.Button();
 			this.emailList = new System.Windows.Forms.ListBox();
 			this.emailListCountLabel = new System.Windows.Forms.Label();
+			this.replyButton = new System.Windows.Forms.Button();
 			this.menuStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			this.SuspendLayout();
@@ -60,19 +61,19 @@
             this.exitToolStripMenuItem});
 			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
 			this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-			this.fileToolStripMenuItem.Text = "File";
+			this.fileToolStripMenuItem.Text = "&File";
 			// 
 			// newToolStripMenuItem
 			// 
 			this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-			this.newToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+			this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.newToolStripMenuItem.Text = "&New";
 			this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
 			// 
 			// exitToolStripMenuItem
 			// 
 			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-			this.exitToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+			this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.exitToolStripMenuItem.Text = "&Exit";
 			this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
 			// 
@@ -82,12 +83,12 @@
             this.fetchNewToolStripMenuItem});
 			this.mailToolStripMenuItem.Name = "mailToolStripMenuItem";
 			this.mailToolStripMenuItem.Size = new System.Drawing.Size(42, 20);
-			this.mailToolStripMenuItem.Text = "Mail";
+			this.mailToolStripMenuItem.Text = "&Mail";
 			// 
 			// fetchNewToolStripMenuItem
 			// 
 			this.fetchNewToolStripMenuItem.Name = "fetchNewToolStripMenuItem";
-			this.fetchNewToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+			this.fetchNewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.fetchNewToolStripMenuItem.Text = "&Fetch new";
 			this.fetchNewToolStripMenuItem.Click += new System.EventHandler(this.fetchNewToolStripMenuItem_Click);
 			// 
@@ -95,7 +96,7 @@
 			// 
 			this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
 			this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-			this.helpToolStripMenuItem.Text = "Help";
+			this.helpToolStripMenuItem.Text = "&Help";
 			this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
 			// 
 			// statusStrip1
@@ -114,25 +115,25 @@
 			this.progressBar.Size = new System.Drawing.Size(150, 16);
 			this.progressBar.Step = 1;
 			// 
-			// richTextBox1
+			// messageBox
 			// 
-			this.richTextBox1.BackColor = System.Drawing.Color.White;
-			this.richTextBox1.Location = new System.Drawing.Point(270, 115);
-			this.richTextBox1.Name = "richTextBox1";
-			this.richTextBox1.ReadOnly = true;
-			this.richTextBox1.Size = new System.Drawing.Size(407, 434);
-			this.richTextBox1.TabIndex = 3;
-			this.richTextBox1.Text = "";
+			this.messageBox.BackColor = System.Drawing.Color.White;
+			this.messageBox.Location = new System.Drawing.Point(270, 115);
+			this.messageBox.Name = "messageBox";
+			this.messageBox.ReadOnly = true;
+			this.messageBox.Size = new System.Drawing.Size(407, 434);
+			this.messageBox.TabIndex = 3;
+			this.messageBox.Text = "";
 			// 
-			// richTextBox2
+			// subjectBox
 			// 
-			this.richTextBox2.BackColor = System.Drawing.Color.White;
-			this.richTextBox2.Location = new System.Drawing.Point(270, 77);
-			this.richTextBox2.Name = "richTextBox2";
-			this.richTextBox2.ReadOnly = true;
-			this.richTextBox2.Size = new System.Drawing.Size(407, 32);
-			this.richTextBox2.TabIndex = 4;
-			this.richTextBox2.Text = "";
+			this.subjectBox.BackColor = System.Drawing.Color.White;
+			this.subjectBox.Location = new System.Drawing.Point(270, 77);
+			this.subjectBox.Name = "subjectBox";
+			this.subjectBox.ReadOnly = true;
+			this.subjectBox.Size = new System.Drawing.Size(407, 32);
+			this.subjectBox.TabIndex = 4;
+			this.subjectBox.Text = "";
 			// 
 			// fetchNewMailButton
 			// 
@@ -163,16 +164,27 @@
 			this.emailListCountLabel.Size = new System.Drawing.Size(0, 13);
 			this.emailListCountLabel.TabIndex = 7;
 			// 
+			// replyButton
+			// 
+			this.replyButton.Location = new System.Drawing.Point(442, 27);
+			this.replyButton.Name = "replyButton";
+			this.replyButton.Size = new System.Drawing.Size(102, 44);
+			this.replyButton.TabIndex = 8;
+			this.replyButton.Text = "Reply";
+			this.replyButton.UseVisualStyleBackColor = true;
+			this.replyButton.Click += new System.EventHandler(this.replyButton_Click);
+			// 
 			// emailrForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(688, 580);
+			this.Controls.Add(this.replyButton);
 			this.Controls.Add(this.emailListCountLabel);
 			this.Controls.Add(this.emailList);
 			this.Controls.Add(this.fetchNewMailButton);
-			this.Controls.Add(this.richTextBox2);
-			this.Controls.Add(this.richTextBox1);
+			this.Controls.Add(this.subjectBox);
+			this.Controls.Add(this.messageBox);
 			this.Controls.Add(this.statusStrip1);
 			this.Controls.Add(this.menuStrip1);
 			this.MainMenuStrip = this.menuStrip1;
@@ -198,12 +210,13 @@
 		private System.Windows.Forms.ToolStripMenuItem fetchNewToolStripMenuItem;
 		private System.Windows.Forms.StatusStrip statusStrip1;
 		private System.Windows.Forms.ToolStripProgressBar progressBar;
-		private System.Windows.Forms.RichTextBox richTextBox1;
-		private System.Windows.Forms.RichTextBox richTextBox2;
+		private System.Windows.Forms.RichTextBox messageBox;
+		private System.Windows.Forms.RichTextBox subjectBox;
 		private System.Windows.Forms.Button fetchNewMailButton;
 		private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
 		private System.Windows.Forms.ListBox emailList;
 		private System.Windows.Forms.Label emailListCountLabel;
+		private System.Windows.Forms.Button replyButton;
 	}
 }
 

@@ -8,7 +8,7 @@ using System.Windows.Forms;
 namespace Email_Application {
 	public partial class emailrForm : Form {
 
-		FetchMail fetch = null;
+		//FetchMail fetch = null;
 		string server = "gmail";
 		public int emailCount = 0;
 		string username = "";
@@ -21,7 +21,7 @@ namespace Email_Application {
 		public emailrForm() {
 			InitializeComponent();
 
-			fetch = new FetchMail();
+			//fetch = new FetchMail();
 			_client = new MongoClient();
 			_database = _client.GetDatabase("test");
 
@@ -50,16 +50,26 @@ namespace Email_Application {
 			queryMongo();
 		}
 
+		public string MessageSubjectBox {
+			get { return this.subjectBox.Text; }
+			set { this.subjectBox.Text = value; }
+		}
+
+		public string MessageBodyBox {
+			get { return this.messageBox.Text; }
+			set { this.messageBox.Text = value; }
+		}
+
 		private void ItemReply_Click(object sender, EventArgs e) {
 			Debug.WriteLine("Not impletemed yet.");
 
 			//throw new NotImplementedException();
 			if (emailList.SelectedIndex >= 0) {
 				var item = (EmailListBoxItem)emailList.SelectedItem;
-				richTextBox1.Text = item.Body;
-				richTextBox2.Text = item.Subject;
+				messageBox.Text = item.Body;
+				subjectBox.Text = item.Subject;
 
-				var replyForm = new ReplyForm(username, richTextBox1.Text);
+				var replyForm = new ReplyForm(username, messageBox.Text);
 				replyForm.Show();
 			}
 		}
@@ -73,8 +83,8 @@ namespace Email_Application {
 		private void ItemOpen_Click(object sender, EventArgs e) {
 			if (emailList.SelectedIndex >= 0) {
 				var item = (EmailListBoxItem)emailList.SelectedItem;
-				richTextBox1.Text = item.Body;
-				richTextBox2.Text = item.Subject;
+				messageBox.Text = item.Body;
+				subjectBox.Text = item.Subject;
 			}
 		}
 
@@ -83,6 +93,7 @@ namespace Email_Application {
 		/// </summary>
 		private void FetchMessages() {
 			using (var client = new ImapClient()) {
+				username = "cube.wales@gmail.com";	// keep this here so it's easier to enter them both.
 				var password = "";
 				var mailbox = "";
 
@@ -98,7 +109,7 @@ namespace Email_Application {
 				}
 
 				client.Login(username, password);
-				fetch.GetMessages(client, mailbox, progressBar, richTextBox2, richTextBox1, emailList, emailCount);
+				FetchMail.GetMessages(client, mailbox, progressBar, emailList, emailCount);
 			}
 		}
 
@@ -155,6 +166,7 @@ namespace Email_Application {
 			fetchNewMailButton.Enabled = false;
 			FetchMessages();
 			fetchNewMailButton.Enabled = true;
+			progressBar.Value = 0;
 		}
 
 		private void helpToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -163,8 +175,8 @@ namespace Email_Application {
 
 		private void emailList_MouseDoubleClick(object sender, MouseEventArgs e) {
 			var item = (EmailListBoxItem)emailList.SelectedItem;
-			richTextBox1.Text = item.Body;
-			richTextBox2.Text = item.Subject;
+			messageBox.Text = item.Body;
+			subjectBox.Text = item.Subject;
 		}
 
 		private void emailList_MouseUp(object sender, MouseEventArgs e) {
@@ -176,6 +188,11 @@ namespace Email_Application {
 					emailListContextMenu.Show(emailList, e.Location);
 				}
 			}
+		}
+
+		private void replyButton_Click(object sender, EventArgs e) {
+			var replyForm = new ReplyForm(username, messageBox.Text);
+			replyForm.Show();
 		}
 	}
 }
