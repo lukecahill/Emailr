@@ -8,12 +8,12 @@ using MongoDB.Driver;
 using MongoDB.Bson;
 
 namespace Email_Application {
-	public class FetchMail {
+	public static class FetchMail {
 		
-		protected static IMongoClient _client = new MongoClient();
-		IMongoDatabase _database = _client.GetDatabase("test");
+		private static IMongoClient _client = new MongoClient();
+		static IMongoDatabase _database = _client.GetDatabase("test");
 
-		public void GetMessages(ImapClient client, string mailbox, ToolStripProgressBar bar, RichTextBox subject, RichTextBox body, ListBox emailList, int emailCount) {
+		public static void GetMessages(ImapClient client, string mailbox, ToolStripProgressBar bar, ListBox emailList, int emailCount) {
 			if (client.IsConnected) {
 				client.SelectMailbox(mailbox);
 				var messages = GetUnseenMessages(client);
@@ -21,7 +21,7 @@ namespace Email_Application {
 
 				if (count > 0) {
 					bar.Maximum = count;
-					LoopThroughMessages(client, messages, count, subject, body, bar, emailList, emailCount);
+					LoopThroughMessages(client, messages, count, bar, emailList, emailCount);
 				} else {
 					Debug.WriteLine("No new mail has been found.");
 					bar.Value = bar.Maximum;
@@ -30,12 +30,12 @@ namespace Email_Application {
 				}
 			}
 		}
-		public Lazy<MailMessage>[] GetUnseenMessages(ImapClient client) {
+		public static Lazy<MailMessage>[] GetUnseenMessages(ImapClient client) {
 			var messages = client.SearchMessages(SearchCondition.Unseen());
 			return messages;
 		}
 
-		public void LoopThroughMessages(ImapClient client, Lazy<MailMessage>[] messages, int count, RichTextBox subject, RichTextBox body, ToolStripProgressBar bar, ListBox emailList, int emailCount) {
+		public static void LoopThroughMessages(ImapClient client, Lazy<MailMessage>[] messages, int count, ToolStripProgressBar bar, ListBox emailList, int emailCount) {
 			var collection = _database.GetCollection<BsonDocument>("mycollection");
 			var i = 0;
 			foreach (var item in messages) {
@@ -49,7 +49,6 @@ namespace Email_Application {
 					{ "cc", item.Value.Cc.ToString() }
 				};
 				collection.InsertOneAsync(document);
-
 				var email = new EmailListBoxItem(document["temp_id"].ToString(), document["subject"].ToString(), document["body"].ToString(), document["to"].ToString(), document["cc"].ToString());
 				emailList.Items.Add(email);
 				bar.PerformStep();
