@@ -8,14 +8,16 @@ namespace Email_Application {
 		public string Body { get; set; }
 		public string To { get; set; }
 		public string Cc { get; set; }
+		public string From { get; set; }
 		public object Object { get; set; }
-		
-		public EmailListBoxItem(string id, string subject, string body, string to, string cc) {
+
+		public EmailListBoxItem(string id, string subject, string body, string to, string cc, string from) {
 			this.EmailId = id;
 			this.Subject = subject;
 			this.Body = body;
 			this.To = to;
 			this.Cc = cc;
+			this.From = from;
 		}
 
 		public EmailListBoxItem() {	}
