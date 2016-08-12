@@ -111,6 +111,7 @@ namespace Email_Application {
 
 				client.Login(username, password);
 				emailCount += FetchMail.GetMessages(client, mailbox, progressBar, emailList);
+				emailListCountLabel.Text = $"Items: {emailCount}";
 			}
 		}
 
@@ -139,7 +140,7 @@ namespace Email_Application {
 					}
 				}
 			}
-			emailListCountLabel.Text = $"Number of emails: {emailCount}";
+			emailListCountLabel.Text = $"Items: {emailCount}";
 		}
 
 		public async void deleteEmail() {
