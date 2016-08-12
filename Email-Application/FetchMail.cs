@@ -13,7 +13,7 @@ namespace Email_Application {
 		private static IMongoClient _client = new MongoClient();
 		static IMongoDatabase _database = _client.GetDatabase("test");
 
-		public static void GetMessages(ImapClient client, string mailbox, ToolStripProgressBar bar, ListBox emailList, int emailCount) {
+		public static int GetMessages(ImapClient client, string mailbox, ToolStripProgressBar bar, ListBox emailList) {
 			if (client.IsConnected) {
 				client.SelectMailbox(mailbox);
 				var messages = GetUnseenMessages(client);
@@ -21,7 +21,8 @@ namespace Email_Application {
 
 				if (count > 0) {
 					bar.Maximum = count;
-					LoopThroughMessages(client, messages, count, bar, emailList, emailCount);
+					var i = LoopThroughMessages(client, messages, count, bar, emailList);
+					return i;
 				} else {
 					Debug.WriteLine("No new mail has been found.");
 					bar.Value = bar.Maximum;
@@ -29,13 +30,14 @@ namespace Email_Application {
 					bar.Value = 0;
 				}
 			}
+			return 0;
 		}
 		public static Lazy<MailMessage>[] GetUnseenMessages(ImapClient client) {
 			var messages = client.SearchMessages(SearchCondition.Unseen());
 			return messages;
 		}
 
-		public static void LoopThroughMessages(ImapClient client, Lazy<MailMessage>[] messages, int count, ToolStripProgressBar bar, ListBox emailList, int emailCount) {
+		public static int LoopThroughMessages(ImapClient client, Lazy<MailMessage>[] messages, int count, ToolStripProgressBar bar, ListBox emailList) {
 			var collection = _database.GetCollection<BsonDocument>("mycollection");
 			var i = 0;
 			foreach (var item in messages) {
@@ -46,16 +48,26 @@ namespace Email_Application {
 					{ "body", item.Value.Body },
 					{ "subject", item.Value.Subject },
 					{ "to", item.Value.To.ToString() },
-					{ "cc", item.Value.Cc.ToString() }
+					{ "cc", item.Value.Cc.ToString() },
+					{ "from", item.Value.From.ToString() }
 				};
 				collection.InsertOneAsync(document);
-				var email = new EmailListBoxItem(document["temp_id"].ToString(), document["subject"].ToString(), document["body"].ToString(), document["to"].ToString(), document["cc"].ToString());
+
+				var email = new EmailListBoxItem(
+					document["temp_id"].ToString(), 
+					document["subject"].ToString(), 
+					document["body"].ToString(), 
+					document["to"].ToString(), 
+					document["cc"].ToString(),
+					document["from"].ToString()
+				);
+
 				emailList.Items.Add(email);
 				bar.PerformStep();
-				emailCount++;
 			}
 			//client.SetFlags(Flags.Seen, mailMessage);
 			Debug.WriteLine("Mail has been fetched successfully!");
+			return i;
 		}
 	}
 }

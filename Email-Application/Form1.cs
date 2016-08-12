@@ -110,7 +110,7 @@ namespace Email_Application {
 				}
 
 				client.Login(username, password);
-				emailCount = FetchMail.GetMessages(client, mailbox, progressBar, emailList);
+				emailCount += FetchMail.GetMessages(client, mailbox, progressBar, emailList);
 			}
 		}
 
