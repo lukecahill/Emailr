@@ -68,8 +68,8 @@ namespace Email_Application {
 				var item = (EmailListBoxItem)emailList.SelectedItem;
 				messageBox.Text = item.Body;
 				subjectBox.Text = item.Subject;
-
-				var replyForm = new ReplyForm(username, messageBox.Text);
+				
+				var replyForm = new ReplyForm(username, messageBox.Text, item.From);
 				replyForm.Show();
 			}
 		}
@@ -85,6 +85,7 @@ namespace Email_Application {
 				var item = (EmailListBoxItem)emailList.SelectedItem;
 				messageBox.Text = item.Body;
 				subjectBox.Text = item.Subject;
+				fromLabel.Text = $"From: {item.From}";
 			}
 		}
 
@@ -93,7 +94,7 @@ namespace Email_Application {
 		/// </summary>
 		private void FetchMessages() {
 			using (var client = new ImapClient()) {
-				username = "cube.wales@gmail.com";	// keep this here so it's easier to enter them both.
+				username = "";	// keep this here so it's easier to enter them both.
 				var password = "";
 				var mailbox = "";
 
@@ -109,7 +110,7 @@ namespace Email_Application {
 				}
 
 				client.Login(username, password);
-				FetchMail.GetMessages(client, mailbox, progressBar, emailList, emailCount);
+				emailCount = FetchMail.GetMessages(client, mailbox, progressBar, emailList);
 			}
 		}
 
@@ -124,8 +125,15 @@ namespace Email_Application {
 				while (await cursor.MoveNextAsync()) {
 					var batch = cursor.Current;
 					foreach (var document in batch) {
-						// need to save the from...
-						var email = new EmailListBoxItem(document["_id"].ToString(), document["subject"].ToString(), document["body"].ToString(), document["to"].ToString(), document["cc"].ToString());
+						var email = new EmailListBoxItem(
+							document["temp_id"].ToString(),
+							document["subject"].ToString(),
+							document["body"].ToString(),
+							document["to"].ToString(),
+							document["cc"].ToString(),
+							document["from"].ToString()
+						);
+
 						emailList.Items.Add(email);
 						emailCount++;
 					}
@@ -175,6 +183,7 @@ namespace Email_Application {
 
 		private void emailList_MouseDoubleClick(object sender, MouseEventArgs e) {
 			var item = (EmailListBoxItem)emailList.SelectedItem;
+			fromLabel.Text = $"From: {item.From}";
 			messageBox.Text = item.Body;
 			subjectBox.Text = item.Subject;
 		}
@@ -191,7 +200,7 @@ namespace Email_Application {
 		}
 
 		private void replyButton_Click(object sender, EventArgs e) {
-			var replyForm = new ReplyForm(username, messageBox.Text);
+			var replyForm = new ReplyForm(username, messageBox.Text, fromLabel.Text);
 			replyForm.Show();
 		}
 	}

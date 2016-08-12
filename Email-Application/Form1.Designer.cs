@@ -38,6 +38,7 @@
 			this.emailList = new System.Windows.Forms.ListBox();
 			this.emailListCountLabel = new System.Windows.Forms.Label();
 			this.replyButton = new System.Windows.Forms.Button();
+			this.fromLabel = new System.Windows.Forms.Label();
 			this.menuStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			this.SuspendLayout();
@@ -66,14 +67,14 @@
 			// newToolStripMenuItem
 			// 
 			this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-			this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.newToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
 			this.newToolStripMenuItem.Text = "&New";
 			this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
 			// 
 			// exitToolStripMenuItem
 			// 
 			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-			this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.exitToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
 			this.exitToolStripMenuItem.Text = "&Exit";
 			this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
 			// 
@@ -88,7 +89,7 @@
 			// fetchNewToolStripMenuItem
 			// 
 			this.fetchNewToolStripMenuItem.Name = "fetchNewToolStripMenuItem";
-			this.fetchNewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.fetchNewToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
 			this.fetchNewToolStripMenuItem.Text = "&Fetch new";
 			this.fetchNewToolStripMenuItem.Click += new System.EventHandler(this.fetchNewToolStripMenuItem_Click);
 			// 
@@ -106,6 +107,7 @@
 			this.statusStrip1.Location = new System.Drawing.Point(0, 558);
 			this.statusStrip1.Name = "statusStrip1";
 			this.statusStrip1.Size = new System.Drawing.Size(688, 22);
+			this.statusStrip1.SizingGrip = false;
 			this.statusStrip1.TabIndex = 2;
 			this.statusStrip1.Text = "statusStrip1";
 			// 
@@ -174,11 +176,20 @@
 			this.replyButton.UseVisualStyleBackColor = true;
 			this.replyButton.Click += new System.EventHandler(this.replyButton_Click);
 			// 
+			// fromLabel
+			// 
+			this.fromLabel.AutoSize = true;
+			this.fromLabel.Location = new System.Drawing.Point(278, 58);
+			this.fromLabel.Name = "fromLabel";
+			this.fromLabel.Size = new System.Drawing.Size(0, 13);
+			this.fromLabel.TabIndex = 9;
+			// 
 			// emailrForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(688, 580);
+			this.Controls.Add(this.fromLabel);
 			this.Controls.Add(this.replyButton);
 			this.Controls.Add(this.emailListCountLabel);
 			this.Controls.Add(this.emailList);
@@ -187,6 +198,7 @@
 			this.Controls.Add(this.messageBox);
 			this.Controls.Add(this.statusStrip1);
 			this.Controls.Add(this.menuStrip1);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
 			this.MainMenuStrip = this.menuStrip1;
 			this.MaximizeBox = false;
 			this.Name = "emailrForm";
@@ -217,6 +229,7 @@
 		private System.Windows.Forms.ListBox emailList;
 		private System.Windows.Forms.Label emailListCountLabel;
 		private System.Windows.Forms.Button replyButton;
+		private System.Windows.Forms.Label fromLabel;
 	}
 }
 
