@@ -11,6 +11,7 @@ namespace Email_Application {
 		FetchMail fetch = null;
 		string server = "gmail";
 		public int emailCount = 0;
+		string username = "";
 
 		ContextMenu emailListContextMenu = new ContextMenu();
 
@@ -51,10 +52,16 @@ namespace Email_Application {
 
 		private void ItemReply_Click(object sender, EventArgs e) {
 			Debug.WriteLine("Not impletemed yet.");
-			throw new NotImplementedException();
 
-			var mail = new Mail();
-			mail.sendMail("", "", "", "");
+			//throw new NotImplementedException();
+			if (emailList.SelectedIndex >= 0) {
+				var item = (EmailListBoxItem)emailList.SelectedItem;
+				richTextBox1.Text = item.Body;
+				richTextBox2.Text = item.Subject;
+
+				var replyForm = new ReplyForm(username, richTextBox1.Text);
+				replyForm.Show();
+			}
 		}
 
 		private void ItemDelete_Click(object sender, EventArgs e) {
@@ -76,7 +83,6 @@ namespace Email_Application {
 		/// </summary>
 		private void FetchMessages() {
 			using (var client = new ImapClient()) {
-				var username = "";
 				var password = "";
 				var mailbox = "";
 
@@ -107,6 +113,7 @@ namespace Email_Application {
 				while (await cursor.MoveNextAsync()) {
 					var batch = cursor.Current;
 					foreach (var document in batch) {
+						// need to save the from...
 						var email = new EmailListBoxItem(document["_id"].ToString(), document["subject"].ToString(), document["body"].ToString(), document["to"].ToString(), document["cc"].ToString());
 						emailList.Items.Add(email);
 						emailCount++;
