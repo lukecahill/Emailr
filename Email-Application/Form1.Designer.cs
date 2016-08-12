@@ -39,6 +39,8 @@
 			this.emailListCountLabel = new System.Windows.Forms.Label();
 			this.replyButton = new System.Windows.Forms.Button();
 			this.fromLabel = new System.Windows.Forms.Label();
+			this.searchTextBox = new System.Windows.Forms.TextBox();
+			this.searchEmailButton = new System.Windows.Forms.Button();
 			this.menuStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			this.SuspendLayout();
@@ -161,7 +163,7 @@
 			// emailListCountLabel
 			// 
 			this.emailListCountLabel.AutoSize = true;
-			this.emailListCountLabel.Location = new System.Drawing.Point(12, 43);
+			this.emailListCountLabel.Location = new System.Drawing.Point(12, 27);
 			this.emailListCountLabel.Name = "emailListCountLabel";
 			this.emailListCountLabel.Size = new System.Drawing.Size(0, 13);
 			this.emailListCountLabel.TabIndex = 7;
@@ -184,11 +186,30 @@
 			this.fromLabel.Size = new System.Drawing.Size(0, 13);
 			this.fromLabel.TabIndex = 9;
 			// 
+			// searchTextBox
+			// 
+			this.searchTextBox.Location = new System.Drawing.Point(12, 51);
+			this.searchTextBox.Name = "searchTextBox";
+			this.searchTextBox.Size = new System.Drawing.Size(219, 20);
+			this.searchTextBox.TabIndex = 10;
+			// 
+			// searchEmailButton
+			// 
+			this.searchEmailButton.Location = new System.Drawing.Point(237, 48);
+			this.searchEmailButton.Name = "searchEmailButton";
+			this.searchEmailButton.Size = new System.Drawing.Size(27, 23);
+			this.searchEmailButton.TabIndex = 11;
+			this.searchEmailButton.Text = "S";
+			this.searchEmailButton.UseVisualStyleBackColor = true;
+			this.searchEmailButton.Click += new System.EventHandler(this.searchEmailButton_Click);
+			// 
 			// emailrForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(688, 580);
+			this.Controls.Add(this.searchEmailButton);
+			this.Controls.Add(this.searchTextBox);
 			this.Controls.Add(this.fromLabel);
 			this.Controls.Add(this.replyButton);
 			this.Controls.Add(this.emailListCountLabel);
@@ -230,6 +251,8 @@
 		private System.Windows.Forms.Label emailListCountLabel;
 		private System.Windows.Forms.Button replyButton;
 		private System.Windows.Forms.Label fromLabel;
+		private System.Windows.Forms.TextBox searchTextBox;
+		private System.Windows.Forms.Button searchEmailButton;
 	}
 }
 

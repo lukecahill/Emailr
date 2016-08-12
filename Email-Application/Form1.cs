@@ -3,6 +3,7 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Email_Application {
@@ -203,6 +204,20 @@ namespace Email_Application {
 		private void replyButton_Click(object sender, EventArgs e) {
 			var replyForm = new ReplyForm(username, messageBox.Text, fromLabel.Text);
 			replyForm.Show();
+		}
+
+		private async void searchEmailButton_Click(object sender, EventArgs e) {
+			var text = searchTextBox.Text;
+			var collection = _database.GetCollection<BsonDocument>("mycollection");
+			var builder = Builders<BsonDocument>.Filter;
+			var filter = builder.Regex("subject", new BsonRegularExpression(text)) | builder.Regex("body", new BsonRegularExpression(text)) | builder.Eq("from", text);
+			var result = await collection.Find(filter).ToListAsync();
+
+			foreach(var item in result) {
+				Debug.WriteLine(item["body"]);
+				Debug.WriteLine(item["subject"]);
+				Debug.WriteLine(item["from"]);
+			}
 		}
 	}
 }
