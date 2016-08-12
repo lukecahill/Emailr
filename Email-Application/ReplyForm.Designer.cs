@@ -62,6 +62,9 @@
 			this.Controls.Add(this.sendButton);
 			this.Controls.Add(this.replyToBox);
 			this.Controls.Add(this.replyBox);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+			this.HelpButton = true;
+			this.MaximizeBox = false;
 			this.Name = "ReplyForm";
 			this.Text = "ReplyForm";
 			this.ResumeLayout(false);
