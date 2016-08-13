@@ -208,7 +208,17 @@ namespace Email_Application {
 			replyForm.Show();
 		}
 
-		private async void searchEmailButton_Click(object sender, EventArgs e) {
+		private void searchEmailButton_Click(object sender, EventArgs e) {
+			searchMessages();
+		}
+
+		private void searchTextBox_KeyUp(object sender, KeyEventArgs e) {
+			if(e.KeyCode == Keys.Enter) {
+				searchMessages();
+			}
+		}
+
+		private async void searchMessages() {
 			emailCount = 0;
 			var text = searchTextBox.Text;
 			var collection = _database.GetCollection<BsonDocument>("mycollection");
@@ -218,7 +228,7 @@ namespace Email_Application {
 
 			emailList.Items.Clear();
 
-			foreach(var item in result) {
+			foreach (var item in result) {
 				var email = new EmailListBoxItem(
 							item["temp_id"].ToString(),
 							item["subject"].ToString(),

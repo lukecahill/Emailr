@@ -182,6 +182,7 @@
 			this.searchTextBox.Name = "searchTextBox";
 			this.searchTextBox.Size = new System.Drawing.Size(219, 20);
 			this.searchTextBox.TabIndex = 10;
+			this.searchTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.searchTextBox_KeyUp);
 			// 
 			// searchEmailButton
 			// 
