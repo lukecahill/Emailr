@@ -67,10 +67,10 @@ namespace Email_Application {
 			//throw new NotImplementedException();
 			if (emailList.SelectedIndex >= 0) {
 				var item = (EmailListBoxItem)emailList.SelectedItem;
-				messageBox.Text = item.Body;
+				messageBox.DocumentText = item.Body;
 				subjectBox.Text = item.Subject;
 				
-				var replyForm = new ReplyForm(username, messageBox.Text, item.From);
+				var replyForm = new ReplyForm(username, messageBox.DocumentText, item.From);
 				replyForm.Show();
 			}
 		}
@@ -84,7 +84,7 @@ namespace Email_Application {
 		private void ItemOpen_Click(object sender, EventArgs e) {
 			if (emailList.SelectedIndex >= 0) {
 				var item = (EmailListBoxItem)emailList.SelectedItem;
-				messageBox.Text = item.Body;
+				messageBox.DocumentText = item.Body;
 				subjectBox.Text = item.Subject;
 				fromLabel.Text = $"From: {item.From}";
 			}
@@ -186,7 +186,7 @@ namespace Email_Application {
 		private void emailList_MouseDoubleClick(object sender, MouseEventArgs e) {
 			var item = (EmailListBoxItem)emailList.SelectedItem;
 			fromLabel.Text = $"From: {item.From}";
-			messageBox.Text = item.Body;
+			messageBox.DocumentText = item.Body;
 			subjectBox.Text = item.Subject;
 		}
 
@@ -202,7 +202,7 @@ namespace Email_Application {
 		}
 
 		private void replyButton_Click(object sender, EventArgs e) {
-			var replyForm = new ReplyForm(username, messageBox.Text, fromLabel.Text);
+			var replyForm = new ReplyForm(username, messageBox.DocumentText, fromLabel.Text);
 			replyForm.Show();
 		}
 

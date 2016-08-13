@@ -32,7 +32,6 @@
 			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.progressBar = new System.Windows.Forms.ToolStripProgressBar();
-			this.messageBox = new System.Windows.Forms.RichTextBox();
 			this.subjectBox = new System.Windows.Forms.RichTextBox();
 			this.fetchNewMailButton = new System.Windows.Forms.Button();
 			this.emailList = new System.Windows.Forms.ListBox();
@@ -41,6 +40,7 @@
 			this.fromLabel = new System.Windows.Forms.Label();
 			this.searchTextBox = new System.Windows.Forms.TextBox();
 			this.searchEmailButton = new System.Windows.Forms.Button();
+			this.messageBox = new System.Windows.Forms.WebBrowser();
 			this.menuStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			this.SuspendLayout();
@@ -119,16 +119,6 @@
 			this.progressBar.Size = new System.Drawing.Size(150, 16);
 			this.progressBar.Step = 1;
 			// 
-			// messageBox
-			// 
-			this.messageBox.BackColor = System.Drawing.Color.White;
-			this.messageBox.Location = new System.Drawing.Point(270, 115);
-			this.messageBox.Name = "messageBox";
-			this.messageBox.ReadOnly = true;
-			this.messageBox.Size = new System.Drawing.Size(407, 434);
-			this.messageBox.TabIndex = 3;
-			this.messageBox.Text = "";
-			// 
 			// subjectBox
 			// 
 			this.subjectBox.BackColor = System.Drawing.Color.White;
@@ -195,19 +185,30 @@
 			// 
 			// searchEmailButton
 			// 
-			this.searchEmailButton.Location = new System.Drawing.Point(237, 48);
+			this.searchEmailButton.Location = new System.Drawing.Point(237, 51);
 			this.searchEmailButton.Name = "searchEmailButton";
-			this.searchEmailButton.Size = new System.Drawing.Size(27, 23);
+			this.searchEmailButton.Size = new System.Drawing.Size(27, 20);
 			this.searchEmailButton.TabIndex = 11;
 			this.searchEmailButton.Text = "S";
 			this.searchEmailButton.UseVisualStyleBackColor = true;
 			this.searchEmailButton.Click += new System.EventHandler(this.searchEmailButton_Click);
+			// 
+			// messageBox
+			// 
+			this.messageBox.AllowWebBrowserDrop = false;
+			this.messageBox.Location = new System.Drawing.Point(270, 115);
+			this.messageBox.MinimumSize = new System.Drawing.Size(20, 20);
+			this.messageBox.Name = "messageBox";
+			this.messageBox.Size = new System.Drawing.Size(407, 434);
+			this.messageBox.TabIndex = 12;
+			this.messageBox.WebBrowserShortcutsEnabled = false;
 			// 
 			// emailrForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(688, 580);
+			this.Controls.Add(this.messageBox);
 			this.Controls.Add(this.searchEmailButton);
 			this.Controls.Add(this.searchTextBox);
 			this.Controls.Add(this.fromLabel);
@@ -216,7 +217,6 @@
 			this.Controls.Add(this.emailList);
 			this.Controls.Add(this.fetchNewMailButton);
 			this.Controls.Add(this.subjectBox);
-			this.Controls.Add(this.messageBox);
 			this.Controls.Add(this.statusStrip1);
 			this.Controls.Add(this.menuStrip1);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -243,7 +243,6 @@
 		private System.Windows.Forms.ToolStripMenuItem fetchNewToolStripMenuItem;
 		private System.Windows.Forms.StatusStrip statusStrip1;
 		private System.Windows.Forms.ToolStripProgressBar progressBar;
-		private System.Windows.Forms.RichTextBox messageBox;
 		private System.Windows.Forms.RichTextBox subjectBox;
 		private System.Windows.Forms.Button fetchNewMailButton;
 		private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
@@ -253,6 +252,7 @@
 		private System.Windows.Forms.Label fromLabel;
 		private System.Windows.Forms.TextBox searchTextBox;
 		private System.Windows.Forms.Button searchEmailButton;
+		private System.Windows.Forms.WebBrowser messageBox;
 	}
 }
 
