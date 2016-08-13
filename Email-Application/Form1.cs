@@ -84,6 +84,8 @@ namespace Email_Application {
 		private void ItemOpen_Click(object sender, EventArgs e) {
 			if (emailList.SelectedIndex >= 0) {
 				var item = (EmailListBoxItem)emailList.SelectedItem;
+				//var text = Regex.Replace(item.Body, "\n", "<br>");
+				//messageBox.DocumentText = text;
 				messageBox.DocumentText = item.Body;
 				subjectBox.Text = item.Subject;
 				fromLabel.Text = $"From: {item.From}";
@@ -207,16 +209,27 @@ namespace Email_Application {
 		}
 
 		private async void searchEmailButton_Click(object sender, EventArgs e) {
+			emailCount = 0;
 			var text = searchTextBox.Text;
 			var collection = _database.GetCollection<BsonDocument>("mycollection");
 			var builder = Builders<BsonDocument>.Filter;
 			var filter = builder.Regex("subject", new BsonRegularExpression(text)) | builder.Regex("body", new BsonRegularExpression(text)) | builder.Eq("from", text);
 			var result = await collection.Find(filter).ToListAsync();
 
+			emailList.Items.Clear();
+
 			foreach(var item in result) {
-				Debug.WriteLine(item["body"]);
-				Debug.WriteLine(item["subject"]);
-				Debug.WriteLine(item["from"]);
+				var email = new EmailListBoxItem(
+							item["temp_id"].ToString(),
+							item["subject"].ToString(),
+							item["body"].ToString(),
+							item["to"].ToString(),
+							item["cc"].ToString(),
+							item["from"].ToString()
+						);
+
+				emailList.Items.Add(email);
+				emailCount++;
 			}
 		}
 	}
