@@ -213,7 +213,7 @@ namespace Email_Application {
 			var text = searchTextBox.Text;
 			var collection = _database.GetCollection<BsonDocument>("mycollection");
 			var builder = Builders<BsonDocument>.Filter;
-			var filter = builder.Regex("subject", new BsonRegularExpression(text)) | builder.Regex("body", new BsonRegularExpression(text)) | builder.Eq("from", text);
+			var filter = builder.Regex("subject", new BsonRegularExpression(text)) | builder.Regex("body", new BsonRegularExpression(text)) | builder.Regex("from", new BsonRegularExpression(text));
 			var result = await collection.Find(filter).ToListAsync();
 
 			emailList.Items.Clear();
