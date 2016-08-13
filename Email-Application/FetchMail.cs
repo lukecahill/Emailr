@@ -49,7 +49,7 @@ namespace Email_Application {
 					{ "subject", item.Value.Subject },
 					{ "to", item.Value.To.ToString() },
 					{ "cc", item.Value.Cc.ToString() },
-					{ "from", item.Value.From.ToString() }
+					{ "from", item.Value.From.Address.ToString() }
 				};
 				collection.InsertOneAsync(document);
 
