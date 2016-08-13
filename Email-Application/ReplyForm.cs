@@ -16,12 +16,11 @@ namespace Email_Application {
 			InitializeComponent();
 			this.username = username;
 			this.message = message;
-
-			replyBox.Text = message;
-			if(from.IndexOf("From: ") != -1) {
-				from.Substring(5);
+			
+			if(from.IndexOf("From: ") > -1) {
+				from = from.Substring(5);
 			}
-			replyToBox.Text = from;
+			replyToBox.Text = from.Trim();
 		}
 
 		private void sendButton_Click(object sender, EventArgs e) {

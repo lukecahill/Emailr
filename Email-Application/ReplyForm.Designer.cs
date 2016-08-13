@@ -23,18 +23,10 @@
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-			this.replyBox = new System.Windows.Forms.RichTextBox();
 			this.replyToBox = new System.Windows.Forms.RichTextBox();
 			this.sendButton = new System.Windows.Forms.Button();
+			this.replyBox = new System.Windows.Forms.RichTextBox();
 			this.SuspendLayout();
-			// 
-			// replyBox
-			// 
-			this.replyBox.Location = new System.Drawing.Point(12, 75);
-			this.replyBox.Name = "replyBox";
-			this.replyBox.Size = new System.Drawing.Size(696, 353);
-			this.replyBox.TabIndex = 0;
-			this.replyBox.Text = "";
 			// 
 			// replyToBox
 			// 
@@ -54,6 +46,14 @@
 			this.sendButton.UseVisualStyleBackColor = true;
 			this.sendButton.Click += new System.EventHandler(this.sendButton_Click);
 			// 
+			// replyBox
+			// 
+			this.replyBox.Location = new System.Drawing.Point(12, 75);
+			this.replyBox.Name = "replyBox";
+			this.replyBox.Size = new System.Drawing.Size(696, 353);
+			this.replyBox.TabIndex = 0;
+			this.replyBox.Text = "";
+			// 
 			// ReplyForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -72,9 +72,8 @@
 		}
 
 		#endregion
-
-		private System.Windows.Forms.RichTextBox replyBox;
 		private System.Windows.Forms.RichTextBox replyToBox;
 		private System.Windows.Forms.Button sendButton;
+		private System.Windows.Forms.RichTextBox replyBox;
 	}
 }
