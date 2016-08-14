@@ -7,23 +7,31 @@ using System.Windows.Forms;
 namespace Email_Application {
 	public partial class ReplyForm : Form {
 		string username, message, subject;
-		private bool saved = false;
+		private bool saved = false, reply = false;
 
 		public ReplyForm() {
 			InitializeComponent();
 		}
 
-		public ReplyForm(string username, string message, string subject, string from) {
+		public ReplyForm(string username, string message, string subject, string from, bool reply) {
 			InitializeComponent();
 			this.username = username;
 			this.message = message;
 			this.subject = subject;
-			
-			if(from.IndexOf("From: ") > -1) {
-				from = from.Substring(5);
+			this.reply = reply;
+
+			this.replyBox.Text = message;
+
+			if(this.reply) {
+				this.subjectTextBox.Text = $"RE: {subject}";
+				if (from.IndexOf("From: ") > -1) {
+					from = from.Substring(5);
+				}
+				replyToBox.Text = from.Trim();
+			} else {
+				this.subjectTextBox.Text = $"FW: {subject}";
 			}
-			replyToBox.Text = from.Trim();
-			this.subjectTextBox.Text = $"RE: {subject}";
+			
 		}
 
 		private void sendButton_Click(object sender, EventArgs e) {
