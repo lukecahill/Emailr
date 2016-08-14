@@ -45,8 +45,8 @@ namespace Email_Application {
 			itemReply.Click += ItemReply_Click;
 
 			emailListContextMenu.MenuItems.Add(itemOpen);
-			emailListContextMenu.MenuItems.Add(itemDelete);
 			emailListContextMenu.MenuItems.Add(itemReply);
+			emailListContextMenu.MenuItems.Add(itemDelete);
 			emailList.ContextMenu = emailListContextMenu;
 			queryMongo();
 		}
