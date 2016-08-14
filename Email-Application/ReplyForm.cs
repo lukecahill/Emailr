@@ -37,7 +37,6 @@ namespace Email_Application {
 			} else {
 				MessageBox.Show("Invalid email address entered!");
 			}
-
 		}
 	}
 }

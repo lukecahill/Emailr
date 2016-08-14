@@ -27,13 +27,15 @@
 			this.sendButton = new System.Windows.Forms.Button();
 			this.replyBox = new System.Windows.Forms.RichTextBox();
 			this.subjectTextBox = new System.Windows.Forms.RichTextBox();
+			this.toLabel = new System.Windows.Forms.Label();
+			this.subjectLabel = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// replyToBox
 			// 
-			this.replyToBox.Location = new System.Drawing.Point(12, 12);
+			this.replyToBox.Location = new System.Drawing.Point(58, 12);
 			this.replyToBox.Name = "replyToBox";
-			this.replyToBox.Size = new System.Drawing.Size(696, 21);
+			this.replyToBox.Size = new System.Drawing.Size(650, 21);
 			this.replyToBox.TabIndex = 1;
 			this.replyToBox.Text = "";
 			// 
@@ -57,17 +59,37 @@
 			// 
 			// subjectTextBox
 			// 
-			this.subjectTextBox.Location = new System.Drawing.Point(12, 39);
+			this.subjectTextBox.Location = new System.Drawing.Point(58, 39);
 			this.subjectTextBox.Name = "subjectTextBox";
-			this.subjectTextBox.Size = new System.Drawing.Size(696, 30);
+			this.subjectTextBox.Size = new System.Drawing.Size(650, 30);
 			this.subjectTextBox.TabIndex = 3;
 			this.subjectTextBox.Text = "";
+			// 
+			// toLabel
+			// 
+			this.toLabel.AutoSize = true;
+			this.toLabel.Location = new System.Drawing.Point(29, 12);
+			this.toLabel.Name = "toLabel";
+			this.toLabel.Size = new System.Drawing.Size(23, 13);
+			this.toLabel.TabIndex = 4;
+			this.toLabel.Text = "To:";
+			// 
+			// subjectLabel
+			// 
+			this.subjectLabel.AutoSize = true;
+			this.subjectLabel.Location = new System.Drawing.Point(9, 42);
+			this.subjectLabel.Name = "subjectLabel";
+			this.subjectLabel.Size = new System.Drawing.Size(46, 13);
+			this.subjectLabel.TabIndex = 5;
+			this.subjectLabel.Text = "Subject:";
 			// 
 			// ReplyForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(720, 483);
+			this.Controls.Add(this.subjectLabel);
+			this.Controls.Add(this.toLabel);
 			this.Controls.Add(this.subjectTextBox);
 			this.Controls.Add(this.sendButton);
 			this.Controls.Add(this.replyToBox);
@@ -78,6 +100,7 @@
 			this.Name = "ReplyForm";
 			this.Text = "ReplyForm";
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
@@ -86,5 +109,7 @@
 		private System.Windows.Forms.Button sendButton;
 		private System.Windows.Forms.RichTextBox replyBox;
 		private System.Windows.Forms.RichTextBox subjectTextBox;
+		private System.Windows.Forms.Label toLabel;
+		private System.Windows.Forms.Label subjectLabel;
 	}
 }
