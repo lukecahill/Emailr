@@ -7,7 +7,7 @@ namespace Email_Application {
 
 		public Mail() { }
 
-		public bool sendMail(string subject, string body, string to, string from) {
+		public bool SendMail(string subject, string body, string to, string from) {
 			try {
 				var mail = new MailMessage();
 				var smtpServer = new SmtpClient("smtp.gmail.com");
