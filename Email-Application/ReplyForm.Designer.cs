@@ -26,6 +26,7 @@
 			this.replyToBox = new System.Windows.Forms.RichTextBox();
 			this.sendButton = new System.Windows.Forms.Button();
 			this.replyBox = new System.Windows.Forms.RichTextBox();
+			this.subjectTextBox = new System.Windows.Forms.RichTextBox();
 			this.SuspendLayout();
 			// 
 			// replyToBox
@@ -54,11 +55,20 @@
 			this.replyBox.TabIndex = 0;
 			this.replyBox.Text = "";
 			// 
+			// subjectTextBox
+			// 
+			this.subjectTextBox.Location = new System.Drawing.Point(12, 39);
+			this.subjectTextBox.Name = "subjectTextBox";
+			this.subjectTextBox.Size = new System.Drawing.Size(696, 30);
+			this.subjectTextBox.TabIndex = 3;
+			this.subjectTextBox.Text = "";
+			// 
 			// ReplyForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(720, 483);
+			this.Controls.Add(this.subjectTextBox);
 			this.Controls.Add(this.sendButton);
 			this.Controls.Add(this.replyToBox);
 			this.Controls.Add(this.replyBox);
@@ -75,5 +85,6 @@
 		private System.Windows.Forms.RichTextBox replyToBox;
 		private System.Windows.Forms.Button sendButton;
 		private System.Windows.Forms.RichTextBox replyBox;
+		private System.Windows.Forms.RichTextBox subjectTextBox;
 	}
 }

@@ -70,7 +70,7 @@ namespace Email_Application {
 				messageBox.DocumentText = item.Body;
 				subjectBox.Text = item.Subject;
 				
-				var replyForm = new ReplyForm(username, messageBox.DocumentText, item.From);
+				var replyForm = new ReplyForm(username, messageBox.DocumentText, subjectBox.Text, item.From);
 				replyForm.Show();
 			}
 		}
@@ -204,7 +204,7 @@ namespace Email_Application {
 		}
 
 		private void replyButton_Click(object sender, EventArgs e) {
-			var replyForm = new ReplyForm(username, messageBox.DocumentText, fromLabel.Text);
+			var replyForm = new ReplyForm(username, messageBox.DocumentText, subjectBox.Text, fromLabel.Text);
 			replyForm.Show();
 		}
 
