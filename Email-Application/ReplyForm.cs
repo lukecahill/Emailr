@@ -32,7 +32,7 @@ namespace Email_Application {
 			var valid = re.IsMatch(replyToBox.Text);
 
 			if(valid) {
-				mail.sendMail(subjectTextBox.Text, replyBox.Text, replyToBox.Text, username);
+				mail.SendMail(subjectTextBox.Text, replyBox.Text, replyToBox.Text, username);
 				Thread.Sleep(2000);
 				this.Close();
 			} else {
