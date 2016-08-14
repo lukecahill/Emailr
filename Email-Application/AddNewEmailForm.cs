@@ -11,6 +11,9 @@ namespace Email_Application {
 
 		public AddNewEmailForm() {
 			InitializeComponent();
+
+			_client = new MongoClient();
+			_database = _client.GetDatabase("test");
 		}
 
 		private void addNewEmailButton_Click(object sender, EventArgs e) {
