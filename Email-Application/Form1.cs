@@ -66,7 +66,7 @@ namespace Email_Application {
 				messageBox.DocumentText = item.Body;
 				subjectBox.Text = item.Subject;
 				
-				var replyForm = new ReplyForm(username, messageBox.DocumentText, subjectBox.Text, item.From);
+				var replyForm = new ReplyForm(username, messageBox.DocumentText, subjectBox.Text, item.From, true);
 				replyForm.Show();
 			}
 		}
@@ -196,7 +196,7 @@ namespace Email_Application {
 		}
 
 		private void replyButton_Click(object sender, EventArgs e) {
-			var replyForm = new ReplyForm(username, messageBox.DocumentText, subjectBox.Text, fromLabel.Text);
+			var replyForm = new ReplyForm(username, messageBox.DocumentText, subjectBox.Text, fromLabel.Text, true);
 			replyForm.Show();
 		}
 
@@ -242,6 +242,11 @@ namespace Email_Application {
 
 		private void newEmailButton_Click(object sender, EventArgs e) {
 			ShowNewEmailForm();
+		}
+
+		private void forwardButton_Click(object sender, EventArgs e) {
+			var newEmail = new ReplyForm(username, messageBox.DocumentText, subjectBox.Text, fromLabel.Text, false);
+			newEmail.Show();
 		}
 
 		private void addNewEmailToolStripMenuItem_Click(object sender, EventArgs e) {

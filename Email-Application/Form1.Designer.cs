@@ -44,6 +44,7 @@
 			this.newEmailButton = new System.Windows.Forms.Button();
 			this.newEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.addNewEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.forwardButton = new System.Windows.Forms.Button();
 			this.menuStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			this.SuspendLayout();
@@ -73,14 +74,14 @@
 			// newToolStripMenuItem
 			// 
 			this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-			this.newToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+			this.newToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
 			this.newToolStripMenuItem.Text = "&New";
 			this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
 			// 
 			// exitToolStripMenuItem
 			// 
 			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-			this.exitToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+			this.exitToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
 			this.exitToolStripMenuItem.Text = "&Exit";
 			this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
 			// 
@@ -96,7 +97,7 @@
 			// fetchNewToolStripMenuItem
 			// 
 			this.fetchNewToolStripMenuItem.Name = "fetchNewToolStripMenuItem";
-			this.fetchNewToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+			this.fetchNewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.fetchNewToolStripMenuItem.Text = "&Fetch new";
 			this.fetchNewToolStripMenuItem.Click += new System.EventHandler(this.fetchNewToolStripMenuItem_Click);
 			// 
@@ -233,11 +234,22 @@
 			this.addNewEmailToolStripMenuItem.Text = "Add new email ";
 			this.addNewEmailToolStripMenuItem.Click += new System.EventHandler(this.addNewEmailToolStripMenuItem_Click);
 			// 
+			// forwardButton
+			// 
+			this.forwardButton.Location = new System.Drawing.Point(551, 77);
+			this.forwardButton.Name = "forwardButton";
+			this.forwardButton.Size = new System.Drawing.Size(126, 25);
+			this.forwardButton.TabIndex = 14;
+			this.forwardButton.Text = "Forward Email";
+			this.forwardButton.UseVisualStyleBackColor = true;
+			this.forwardButton.Click += new System.EventHandler(this.forwardButton_Click);
+			// 
 			// emailrForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(688, 580);
+			this.Controls.Add(this.forwardButton);
 			this.Controls.Add(this.newEmailButton);
 			this.Controls.Add(this.messageBox);
 			this.Controls.Add(this.searchEmailButton);
@@ -287,6 +299,7 @@
 		private System.Windows.Forms.Button newEmailButton;
 		private System.Windows.Forms.ToolStripMenuItem newEmailToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem addNewEmailToolStripMenuItem;
+		private System.Windows.Forms.Button forwardButton;
 	}
 }
 
