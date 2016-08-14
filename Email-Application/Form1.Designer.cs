@@ -43,6 +43,7 @@
 			this.messageBox = new System.Windows.Forms.WebBrowser();
 			this.newEmailButton = new System.Windows.Forms.Button();
 			this.newEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.addNewEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			this.SuspendLayout();
@@ -63,6 +64,7 @@
 			// 
 			this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newToolStripMenuItem,
+            this.addNewEmailToolStripMenuItem,
             this.exitToolStripMenuItem});
 			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
 			this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
@@ -125,7 +127,7 @@
 			// subjectBox
 			// 
 			this.subjectBox.BackColor = System.Drawing.Color.White;
-			this.subjectBox.Location = new System.Drawing.Point(270, 77);
+			this.subjectBox.Location = new System.Drawing.Point(269, 108);
 			this.subjectBox.Name = "subjectBox";
 			this.subjectBox.ReadOnly = true;
 			this.subjectBox.Size = new System.Drawing.Size(407, 32);
@@ -174,7 +176,7 @@
 			// fromLabel
 			// 
 			this.fromLabel.AutoSize = true;
-			this.fromLabel.Location = new System.Drawing.Point(278, 58);
+			this.fromLabel.Location = new System.Drawing.Point(275, 88);
 			this.fromLabel.Name = "fromLabel";
 			this.fromLabel.Size = new System.Drawing.Size(0, 13);
 			this.fromLabel.TabIndex = 9;
@@ -200,10 +202,10 @@
 			// messageBox
 			// 
 			this.messageBox.AllowWebBrowserDrop = false;
-			this.messageBox.Location = new System.Drawing.Point(270, 115);
+			this.messageBox.Location = new System.Drawing.Point(270, 146);
 			this.messageBox.MinimumSize = new System.Drawing.Size(20, 20);
 			this.messageBox.Name = "messageBox";
-			this.messageBox.Size = new System.Drawing.Size(407, 434);
+			this.messageBox.Size = new System.Drawing.Size(407, 403);
 			this.messageBox.TabIndex = 12;
 			this.messageBox.WebBrowserShortcutsEnabled = false;
 			// 
@@ -223,6 +225,13 @@
 			this.newEmailToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.newEmailToolStripMenuItem.Text = "New Email";
 			this.newEmailToolStripMenuItem.Click += new System.EventHandler(this.newEmailToolStripMenuItem_Click);
+			// 
+			// addNewEmailToolStripMenuItem
+			// 
+			this.addNewEmailToolStripMenuItem.Name = "addNewEmailToolStripMenuItem";
+			this.addNewEmailToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+			this.addNewEmailToolStripMenuItem.Text = "Add new email ";
+			this.addNewEmailToolStripMenuItem.Click += new System.EventHandler(this.addNewEmailToolStripMenuItem_Click);
 			// 
 			// emailrForm
 			// 
@@ -277,6 +286,7 @@
 		private System.Windows.Forms.WebBrowser messageBox;
 		private System.Windows.Forms.Button newEmailButton;
 		private System.Windows.Forms.ToolStripMenuItem newEmailToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem addNewEmailToolStripMenuItem;
 	}
 }
 

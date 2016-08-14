@@ -244,6 +244,11 @@ namespace Email_Application {
 			ShowNewEmailForm();
 		}
 
+		private void addNewEmailToolStripMenuItem_Click(object sender, EventArgs e) {
+			var newEmailForm = new AddNewEmailForm();
+			newEmailForm.Show();
+		}
+
 		private void newEmailToolStripMenuItem_Click(object sender, EventArgs e) {
 			ShowNewEmailForm();
 		}
