@@ -7,6 +7,7 @@ using System.Windows.Forms;
 namespace Email_Application {
 	public partial class ReplyForm : Form {
 		string username, message, subject;
+		private bool saved = false;
 
 		public ReplyForm() {
 			InitializeComponent();
@@ -36,6 +37,61 @@ namespace Email_Application {
 				this.Close();
 			} else {
 				MessageBox.Show("Invalid email address entered!");
+			}
+		}
+
+		protected override void OnFormClosing(FormClosingEventArgs e) {
+			base.OnFormClosing(e);
+
+			if (e.CloseReason == CloseReason.UserClosing) {
+				var isSaved = CheckExit(saved);
+				var close = ExitApplication(isSaved);
+
+				e.Cancel = close;
+			} else {
+				// only want to prompt to save if the user is the close reason. Otherwise
+				//      return as seen here e.g. if the computer is shutting down.
+				return;
+			}
+		}
+
+		private void replyBox_TextChanged(object sender, EventArgs e) {
+			saved = false;
+		}
+
+		private void subjectTextBox_TextChanged(object sender, EventArgs e) {
+			saved = false;
+		}
+
+		private void replyToBox_TextChanged(object sender, EventArgs e) {
+			saved = false;
+		}
+
+		private bool ExitApplication(int code) {
+			var close = true;
+			switch (code) {
+				case 0:
+					close = false;
+					break;
+				case 1:
+					close = true;
+					break;
+			}
+			return close;
+		}
+
+		public int CheckExit(bool saved) {
+			if (saved) {
+				return 0;
+			} else {
+
+				var ok = MessageBox.Show("Are you sure you wish to exit. \nAny changes will be lost.", "Changes made!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+
+				if (ok == DialogResult.Yes) {
+					return 0;
+				} else {
+					return 1;
+				}
 			}
 		}
 	}

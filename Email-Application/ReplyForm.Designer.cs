@@ -38,6 +38,7 @@
 			this.replyToBox.Size = new System.Drawing.Size(650, 21);
 			this.replyToBox.TabIndex = 1;
 			this.replyToBox.Text = "";
+			this.replyToBox.TextChanged += new System.EventHandler(this.replyToBox_TextChanged);
 			// 
 			// sendButton
 			// 
@@ -56,6 +57,7 @@
 			this.replyBox.Size = new System.Drawing.Size(696, 353);
 			this.replyBox.TabIndex = 0;
 			this.replyBox.Text = "";
+			this.replyBox.TextChanged += new System.EventHandler(this.replyBox_TextChanged);
 			// 
 			// subjectTextBox
 			// 
@@ -64,6 +66,7 @@
 			this.subjectTextBox.Size = new System.Drawing.Size(650, 30);
 			this.subjectTextBox.TabIndex = 3;
 			this.subjectTextBox.Text = "";
+			this.subjectTextBox.TextChanged += new System.EventHandler(this.subjectTextBox_TextChanged);
 			// 
 			// toLabel
 			// 
