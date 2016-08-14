@@ -242,9 +242,17 @@ namespace Email_Application {
 			}
 		}
 
-		private void newEmailButton_Click(object sender, EventArgs e) {
+		private void ShowNewEmailForm() {
 			var newEmail = new ReplyForm();
 			newEmail.Show();
+		}
+
+		private void newEmailButton_Click(object sender, EventArgs e) {
+			ShowNewEmailForm();
+		}
+
+		private void newEmailToolStripMenuItem_Click(object sender, EventArgs e) {
+			ShowNewEmailForm();
 		}
 	}
 }

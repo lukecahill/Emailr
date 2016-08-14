@@ -42,6 +42,7 @@
 			this.searchEmailButton = new System.Windows.Forms.Button();
 			this.messageBox = new System.Windows.Forms.WebBrowser();
 			this.newEmailButton = new System.Windows.Forms.Button();
+			this.newEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			this.SuspendLayout();
@@ -84,7 +85,8 @@
 			// mailToolStripMenuItem
 			// 
 			this.mailToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fetchNewToolStripMenuItem});
+            this.fetchNewToolStripMenuItem,
+            this.newEmailToolStripMenuItem});
 			this.mailToolStripMenuItem.Name = "mailToolStripMenuItem";
 			this.mailToolStripMenuItem.Size = new System.Drawing.Size(42, 20);
 			this.mailToolStripMenuItem.Text = "&Mail";
@@ -215,6 +217,13 @@
 			this.newEmailButton.UseVisualStyleBackColor = true;
 			this.newEmailButton.Click += new System.EventHandler(this.newEmailButton_Click);
 			// 
+			// newEmailToolStripMenuItem
+			// 
+			this.newEmailToolStripMenuItem.Name = "newEmailToolStripMenuItem";
+			this.newEmailToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.newEmailToolStripMenuItem.Text = "New Email";
+			this.newEmailToolStripMenuItem.Click += new System.EventHandler(this.newEmailToolStripMenuItem_Click);
+			// 
 			// emailrForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -267,6 +276,7 @@
 		private System.Windows.Forms.Button searchEmailButton;
 		private System.Windows.Forms.WebBrowser messageBox;
 		private System.Windows.Forms.Button newEmailButton;
+		private System.Windows.Forms.ToolStripMenuItem newEmailToolStripMenuItem;
 	}
 }
 
