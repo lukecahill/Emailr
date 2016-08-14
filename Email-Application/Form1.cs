@@ -8,11 +8,9 @@ using System.Windows.Forms;
 
 namespace Email_Application {
 	public partial class emailrForm : Form {
-
-		//FetchMail fetch = null;
-		string server = "gmail";
+		
 		public int emailCount = 0;
-		string username = "";
+		string username = "", password = "", mailbox = "", server = "gmail";
 
 		ContextMenu emailListContextMenu = new ContextMenu();
 
@@ -47,7 +45,7 @@ namespace Email_Application {
 			emailListContextMenu.MenuItems.Add(itemReply);
 			emailListContextMenu.MenuItems.Add(itemDelete);
 			emailList.ContextMenu = emailListContextMenu;
-			queryMongo();
+			QueryMongo();
 		}
 
 		public string MessageSubjectBox {
@@ -62,8 +60,7 @@ namespace Email_Application {
 
 		private void ItemReply_Click(object sender, EventArgs e) {
 			Debug.WriteLine("Not impletemed yet.");
-
-			//throw new NotImplementedException();
+			
 			if (emailList.SelectedIndex >= 0) {
 				var item = (EmailListBoxItem)emailList.SelectedItem;
 				messageBox.DocumentText = item.Body;
@@ -76,7 +73,7 @@ namespace Email_Application {
 
 		private void ItemDelete_Click(object sender, EventArgs e) {
 			if (emailList.SelectedIndex >= 0) {
-				deleteEmail();
+				DeleteEmail();
 			}
 		}
 
@@ -96,10 +93,6 @@ namespace Email_Application {
 		/// </summary>
 		private void FetchMessages() {
 			using (var client = new ImapClient()) {
-				username = "";	// keep this here so it's easier to enter them both.
-				var password = "";
-				var mailbox = "";
-
 				if (server == "gmail") {
 					client.Connect("imap.gmail.com", 993, true, true);
 					mailbox = "inbox";
@@ -120,7 +113,7 @@ namespace Email_Application {
 		/// <summary>
 		/// Return all of the items found in the database, and insert them into a custom listbox item.
 		/// </summary>
-		public async void queryMongo() {
+		public async void QueryMongo() {
 			emailCount = 0;
 			var collection = _database.GetCollection<BsonDocument>("mycollection");
 			var filter = new BsonDocument();
@@ -145,7 +138,7 @@ namespace Email_Application {
 			emailListCountLabel.Text = $"Items: {emailCount}";
 		}
 
-		public async void deleteEmail() {
+		public async void DeleteEmail() {
 			// edit this to instead remove by the ID of the document.
 			var item = (EmailListBoxItem)emailList.SelectedItem;
 			var id = item.EmailId;
@@ -175,7 +168,7 @@ namespace Email_Application {
 		/// </summary>
 		private void fetchNewMailButton_Click(object sender, EventArgs e) {
 			fetchNewMailButton.Enabled = false;
-			FetchMessages();
+			GetCredentials();
 			fetchNewMailButton.Enabled = true;
 			progressBar.Value = 0;
 		}
@@ -208,16 +201,16 @@ namespace Email_Application {
 		}
 
 		private void searchEmailButton_Click(object sender, EventArgs e) {
-			searchMessages();
+			SearchMessages();
 		}
 
 		private void searchTextBox_KeyUp(object sender, KeyEventArgs e) {
 			if(e.KeyCode == Keys.Enter) {
-				searchMessages();
+				SearchMessages();
 			}
 		}
 
-		private async void searchMessages() {
+		private async void SearchMessages() {
 			emailCount = 0;
 			var text = searchTextBox.Text;
 			var collection = _database.GetCollection<BsonDocument>("mycollection");
@@ -253,6 +246,24 @@ namespace Email_Application {
 
 		private void newEmailToolStripMenuItem_Click(object sender, EventArgs e) {
 			ShowNewEmailForm();
+		}
+
+		private async void GetCredentials() {
+			var collection = _database.GetCollection<BsonDocument>("emailcredentials");
+			var filter = new BsonDocument();
+			using (var cursor = await collection.FindAsync(filter)) {
+				while (await cursor.MoveNextAsync()) {
+					var batch = cursor.Current;
+					foreach (var document in batch) {
+						username = document["username"].ToString();
+						password = document["password"].ToString();
+						server = document["server"].ToString();
+						mailbox = document["mailbox"].ToString();
+					}
+				}
+			}
+
+			FetchMessages();
 		}
 	}
 }
