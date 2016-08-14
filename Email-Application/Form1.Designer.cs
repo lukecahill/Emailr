@@ -41,6 +41,7 @@
 			this.searchTextBox = new System.Windows.Forms.TextBox();
 			this.searchEmailButton = new System.Windows.Forms.Button();
 			this.messageBox = new System.Windows.Forms.WebBrowser();
+			this.newEmailButton = new System.Windows.Forms.Button();
 			this.menuStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			this.SuspendLayout();
@@ -204,11 +205,22 @@
 			this.messageBox.TabIndex = 12;
 			this.messageBox.WebBrowserShortcutsEnabled = false;
 			// 
+			// newEmailButton
+			// 
+			this.newEmailButton.Location = new System.Drawing.Point(270, 27);
+			this.newEmailButton.Name = "newEmailButton";
+			this.newEmailButton.Size = new System.Drawing.Size(102, 44);
+			this.newEmailButton.TabIndex = 13;
+			this.newEmailButton.Text = "New Email";
+			this.newEmailButton.UseVisualStyleBackColor = true;
+			this.newEmailButton.Click += new System.EventHandler(this.newEmailButton_Click);
+			// 
 			// emailrForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(688, 580);
+			this.Controls.Add(this.newEmailButton);
 			this.Controls.Add(this.messageBox);
 			this.Controls.Add(this.searchEmailButton);
 			this.Controls.Add(this.searchTextBox);
@@ -254,6 +266,7 @@
 		private System.Windows.Forms.TextBox searchTextBox;
 		private System.Windows.Forms.Button searchEmailButton;
 		private System.Windows.Forms.WebBrowser messageBox;
+		private System.Windows.Forms.Button newEmailButton;
 	}
 }
 

@@ -22,7 +22,6 @@ namespace Email_Application {
 		public emailrForm() {
 			InitializeComponent();
 
-			//fetch = new FetchMail();
 			_client = new MongoClient();
 			_database = _client.GetDatabase("test");
 
@@ -241,6 +240,11 @@ namespace Email_Application {
 				emailList.Items.Add(email);
 				emailCount++;
 			}
+		}
+
+		private void newEmailButton_Click(object sender, EventArgs e) {
+			var newEmail = new ReplyForm();
+			newEmail.Show();
 		}
 	}
 }
