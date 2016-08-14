@@ -70,6 +70,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddNewEmailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddNewEmailForm.Designer.cs">
+      <DependentUpon>AddNewEmailForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="EmailListBoxItem.cs" />
     <Compile Include="FetchMail.cs" />
     <Compile Include="Form1.cs">
@@ -87,6 +93,9 @@
     <Compile Include="ReplyForm.Designer.cs">
       <DependentUpon>ReplyForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AddNewEmailForm.resx">
+      <DependentUpon>AddNewEmailForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
