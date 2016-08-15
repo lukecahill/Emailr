@@ -11,6 +11,7 @@ namespace Email_Application {
 		
 		public int emailCount = 0;
 		string username = "", password = "", mailbox = "", server = "gmail";
+		private bool emailOpen = false;
 
 		ContextMenu emailListContextMenu = new ContextMenu();
 
@@ -27,6 +28,8 @@ namespace Email_Application {
 			progressBar.Minimum = 0;
 			progressBar.Step = 1;
 			emailList.DrawMode = DrawMode.Normal;
+			replyButton.Enabled = false;
+			forwardButton.Enabled = false;
 
 			var itemOpen = new MenuItem();
 			itemOpen.Text = "&Open";
@@ -85,6 +88,9 @@ namespace Email_Application {
 				messageBox.DocumentText = item.Body;
 				subjectBox.Text = item.Subject;
 				fromLabel.Text = $"From: {item.From}";
+				emailOpen = true;
+
+				EnableButtons(emailOpen);
 			}
 		}
 
@@ -182,6 +188,9 @@ namespace Email_Application {
 			fromLabel.Text = $"From: {item.From}";
 			messageBox.DocumentText = item.Body;
 			subjectBox.Text = item.Subject;
+			emailOpen = true;
+
+			EnableButtons(emailOpen);
 		}
 
 		private void emailList_MouseUp(object sender, MouseEventArgs e) {
@@ -274,6 +283,16 @@ namespace Email_Application {
 			}
 
 			FetchMessages();
+		}
+
+		private void EnableButtons(bool enabled) {
+			if(enabled) {
+				replyButton.Enabled = true;
+				forwardButton.Enabled = true;
+			} else {
+				replyButton.Enabled = false;
+				forwardButton.Enabled = false;
+			}
 		}
 	}
 }
