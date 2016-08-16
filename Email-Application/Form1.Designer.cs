@@ -26,9 +26,11 @@
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.addNewEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.mailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.fetchNewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.newEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.progressBar = new System.Windows.Forms.ToolStripProgressBar();
@@ -42,8 +44,6 @@
 			this.searchEmailButton = new System.Windows.Forms.Button();
 			this.messageBox = new System.Windows.Forms.WebBrowser();
 			this.newEmailButton = new System.Windows.Forms.Button();
-			this.newEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.addNewEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.forwardButton = new System.Windows.Forms.Button();
 			this.menuStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
@@ -78,6 +78,13 @@
 			this.newToolStripMenuItem.Text = "&New";
 			this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
 			// 
+			// addNewEmailToolStripMenuItem
+			// 
+			this.addNewEmailToolStripMenuItem.Name = "addNewEmailToolStripMenuItem";
+			this.addNewEmailToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+			this.addNewEmailToolStripMenuItem.Text = "Add new email ";
+			this.addNewEmailToolStripMenuItem.Click += new System.EventHandler(this.addNewEmailToolStripMenuItem_Click);
+			// 
 			// exitToolStripMenuItem
 			// 
 			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
@@ -97,9 +104,16 @@
 			// fetchNewToolStripMenuItem
 			// 
 			this.fetchNewToolStripMenuItem.Name = "fetchNewToolStripMenuItem";
-			this.fetchNewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.fetchNewToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
 			this.fetchNewToolStripMenuItem.Text = "&Fetch new";
 			this.fetchNewToolStripMenuItem.Click += new System.EventHandler(this.fetchNewToolStripMenuItem_Click);
+			// 
+			// newEmailToolStripMenuItem
+			// 
+			this.newEmailToolStripMenuItem.Name = "newEmailToolStripMenuItem";
+			this.newEmailToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+			this.newEmailToolStripMenuItem.Text = "New Email";
+			this.newEmailToolStripMenuItem.Click += new System.EventHandler(this.newEmailToolStripMenuItem_Click);
 			// 
 			// helpToolStripMenuItem
 			// 
@@ -219,20 +233,6 @@
 			this.newEmailButton.Text = "New Email";
 			this.newEmailButton.UseVisualStyleBackColor = true;
 			this.newEmailButton.Click += new System.EventHandler(this.newEmailButton_Click);
-			// 
-			// newEmailToolStripMenuItem
-			// 
-			this.newEmailToolStripMenuItem.Name = "newEmailToolStripMenuItem";
-			this.newEmailToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-			this.newEmailToolStripMenuItem.Text = "New Email";
-			this.newEmailToolStripMenuItem.Click += new System.EventHandler(this.newEmailToolStripMenuItem_Click);
-			// 
-			// addNewEmailToolStripMenuItem
-			// 
-			this.addNewEmailToolStripMenuItem.Name = "addNewEmailToolStripMenuItem";
-			this.addNewEmailToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
-			this.addNewEmailToolStripMenuItem.Text = "Add new email ";
-			this.addNewEmailToolStripMenuItem.Click += new System.EventHandler(this.addNewEmailToolStripMenuItem_Click);
 			// 
 			// forwardButton
 			// 

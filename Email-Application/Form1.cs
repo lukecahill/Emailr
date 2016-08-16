@@ -4,6 +4,7 @@ using MongoDB.Driver;
 using System;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace Email_Application {
@@ -43,6 +44,11 @@ namespace Email_Application {
 			itemOpen.Click += ItemOpen_Click;
 			itemDelete.Click += ItemDelete_Click;
 			itemReply.Click += ItemReply_Click;
+
+			var getMailTimer = new System.Timers.Timer();
+			getMailTimer.Elapsed += new ElapsedEventHandler(MailTimer);
+			getMailTimer.Interval = 300000;
+			getMailTimer.Enabled = true;
 
 			emailListContextMenu.MenuItems.Add(itemOpen);
 			emailListContextMenu.MenuItems.Add(itemReply);
@@ -261,6 +267,12 @@ namespace Email_Application {
 		private void addNewEmailToolStripMenuItem_Click(object sender, EventArgs e) {
 			var newEmailForm = new AddNewEmailForm();
 			newEmailForm.Show();
+		}
+
+		private void MailTimer(object source, ElapsedEventArgs e) {
+			if (fetchNewMailButton.InvokeRequired) {
+				fetchNewMailButton.Invoke(new MethodInvoker(delegate { GetCredentials(); }));
+			}
 		}
 
 		private void newEmailToolStripMenuItem_Click(object sender, EventArgs e) {
