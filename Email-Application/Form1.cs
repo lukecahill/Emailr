@@ -67,6 +67,11 @@ namespace Email_Application {
 			set { this.messageBox.Text = value; }
 		}
 
+		/// <summary>
+		/// Handler for when the user chooses the reply option in the email list context menu
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void ItemReply_Click(object sender, EventArgs e) {
 			Debug.WriteLine("Not impletemed yet.");
 			
@@ -80,12 +85,22 @@ namespace Email_Application {
 			}
 		}
 
+		/// <summary>
+		/// Handler for when the user chooses the delete option in the email list context menu
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void ItemDelete_Click(object sender, EventArgs e) {
 			if (emailList.SelectedIndex >= 0) {
 				DeleteEmail();
 			}
 		}
 
+		/// <summary>
+		/// Handler for when the user chooses the open option in the email list context menu
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void ItemOpen_Click(object sender, EventArgs e) {
 			if (emailList.SelectedIndex >= 0) {
 				var item = (EmailListBoxItem)emailList.SelectedItem;
@@ -150,6 +165,9 @@ namespace Email_Application {
 			emailListCountLabel.Text = $"Items: {emailCount}";
 		}
 
+		/// <summary>
+		/// Finds the item in the database and deletes it. 
+		/// </summary>
 		public async void DeleteEmail() {
 			// edit this to instead remove by the ID of the document.
 			var item = (EmailListBoxItem)emailList.SelectedItem;
@@ -162,15 +180,30 @@ namespace Email_Application {
 			// should also then update the listbox and the current count.
 		}
 
+		/// <summary>
+		/// Calls the FetchMessages() function, to fetch any new messages
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void fetchNewToolStripMenuItem_Click(object sender, EventArgs e) {
 			FetchMessages();
 		}
 
+		/// <summary>
+		/// Starts a new process of the same application.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void newToolStripMenuItem_Click(object sender, EventArgs e) {
 			var info = new ProcessStartInfo(Application.ExecutablePath);
 			Process.Start(info);
 		}
 
+		/// <summary>
+		/// Exits the programs process
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
 			Environment.Exit(0);
 		}
@@ -185,10 +218,20 @@ namespace Email_Application {
 			progressBar.Value = 0;
 		}
 
+		/// <summary>
+		/// Shows the help for the program
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void helpToolStripMenuItem_Click(object sender, EventArgs e) {
 			MessageBox.Show("No point looking here for help. IDK what is happening here at the moment...");
 		}
 
+		/// <summary>
+		/// Handler for when the user double clicks an email in the email list. 
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void emailList_MouseDoubleClick(object sender, MouseEventArgs e) {
 			var item = (EmailListBoxItem)emailList.SelectedItem;
 			fromLabel.Text = $"From: {item.From}";
@@ -199,6 +242,11 @@ namespace Email_Application {
 			EnableButtons(emailOpen);
 		}
 
+		/// <summary>
+		/// Handler for the user right clicking on an item in the email list, which will then select that item.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void emailList_MouseUp(object sender, MouseEventArgs e) {
 			if (e.Button == MouseButtons.Right) {
 				Debug.WriteLine("right click");
