@@ -45,6 +45,7 @@
 			this.messageBox = new System.Windows.Forms.WebBrowser();
 			this.newEmailButton = new System.Windows.Forms.Button();
 			this.forwardButton = new System.Windows.Forms.Button();
+			this.sortButton = new System.Windows.Forms.Button();
 			this.menuStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			this.SuspendLayout();
@@ -200,13 +201,13 @@
 			// 
 			this.searchTextBox.Location = new System.Drawing.Point(12, 51);
 			this.searchTextBox.Name = "searchTextBox";
-			this.searchTextBox.Size = new System.Drawing.Size(219, 20);
+			this.searchTextBox.Size = new System.Drawing.Size(186, 20);
 			this.searchTextBox.TabIndex = 10;
 			this.searchTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.searchTextBox_KeyUp);
 			// 
 			// searchEmailButton
 			// 
-			this.searchEmailButton.Location = new System.Drawing.Point(237, 51);
+			this.searchEmailButton.Location = new System.Drawing.Point(204, 50);
 			this.searchEmailButton.Name = "searchEmailButton";
 			this.searchEmailButton.Size = new System.Drawing.Size(27, 20);
 			this.searchEmailButton.TabIndex = 11;
@@ -244,11 +245,22 @@
 			this.forwardButton.UseVisualStyleBackColor = true;
 			this.forwardButton.Click += new System.EventHandler(this.forwardButton_Click);
 			// 
+			// sortButton
+			// 
+			this.sortButton.Location = new System.Drawing.Point(237, 50);
+			this.sortButton.Name = "sortButton";
+			this.sortButton.Size = new System.Drawing.Size(27, 20);
+			this.sortButton.TabIndex = 15;
+			this.sortButton.Text = "T";
+			this.sortButton.UseVisualStyleBackColor = true;
+			this.sortButton.Click += new System.EventHandler(this.sortButton_Click);
+			// 
 			// emailrForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(688, 580);
+			this.Controls.Add(this.sortButton);
 			this.Controls.Add(this.forwardButton);
 			this.Controls.Add(this.newEmailButton);
 			this.Controls.Add(this.messageBox);
@@ -300,6 +312,7 @@
 		private System.Windows.Forms.ToolStripMenuItem newEmailToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem addNewEmailToolStripMenuItem;
 		private System.Windows.Forms.Button forwardButton;
+		private System.Windows.Forms.Button sortButton;
 	}
 }
 

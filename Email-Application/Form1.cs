@@ -2,7 +2,9 @@
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Timers;
 using System.Windows.Forms;
@@ -12,7 +14,7 @@ namespace Email_Application {
 		
 		public int emailCount = 0;
 		string username = "", password = "", mailbox = "", server = "gmail";
-		private bool emailOpen = false;
+		private bool emailOpen = false, sorted = false;
 
 		ContextMenu emailListContextMenu = new ContextMenu();
 
@@ -154,7 +156,8 @@ namespace Email_Application {
 							document["body"].ToString(),
 							document["to"].ToString(),
 							document["cc"].ToString(),
-							document["from"].ToString()
+							document["from"].ToString(),
+							document["datetime"].ToString()
 						);
 
 						emailList.Items.Add(email);
@@ -290,7 +293,8 @@ namespace Email_Application {
 							item["body"].ToString(),
 							item["to"].ToString(),
 							item["cc"].ToString(),
-							item["from"].ToString()
+							item["from"].ToString(),
+							item["datetime"].ToString()
 						);
 
 				emailList.Items.Add(email);
@@ -320,6 +324,23 @@ namespace Email_Application {
 		private void MailTimer(object source, ElapsedEventArgs e) {
 			if (fetchNewMailButton.InvokeRequired) {
 				fetchNewMailButton.Invoke(new MethodInvoker(delegate { GetCredentials(); }));
+			}
+		}
+
+		private void sortButton_Click(object sender, EventArgs e) {
+			var list = new List<EmailListBoxItem>();
+			if(sorted) {
+				list = emailList.Items.Cast<EmailListBoxItem>().OrderBy(x => x.Subject).ToList();
+				sorted = false;
+			} else {
+				list = emailList.Items.Cast<EmailListBoxItem>().OrderBy(x => x.DateTime).ToList();
+				sorted = true;
+			}
+			
+			emailList.Items.Clear();
+
+			foreach (var item in list) {
+				emailList.Items.Add(item);
 			}
 		}
 
