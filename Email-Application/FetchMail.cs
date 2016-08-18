@@ -49,17 +49,19 @@ namespace Email_Application {
 					{ "subject", item.Value.Subject },
 					{ "to", item.Value.To.ToString() },
 					{ "cc", item.Value.Cc.ToString() },
-					{ "from", item.Value.From.Address.ToString() }
+					{ "from", item.Value.From.Address.ToString() },
+					{ "datetime", item.Value.Date.ToUniversalTime() }
 				};
 				collection.InsertOneAsync(document);
 
 				var email = new EmailListBoxItem(
-					document["temp_id"].ToString(), 
-					document["subject"].ToString(), 
-					document["body"].ToString(), 
-					document["to"].ToString(), 
+					document["temp_id"].ToString(),
+					document["subject"].ToString(),
+					document["body"].ToString(),
+					document["to"].ToString(),
 					document["cc"].ToString(),
-					document["from"].ToString()
+					document["from"].ToString(),
+					document["datetime"].ToString()
 				);
 
 				emailList.Items.Add(email);
