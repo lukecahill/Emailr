@@ -9,15 +9,17 @@ namespace Email_Application {
 		public string To { get; set; }
 		public string Cc { get; set; }
 		public string From { get; set; }
+		public string DateTime { get; set; }
 		public object Object { get; set; }
 
-		public EmailListBoxItem(string id, string subject, string body, string to, string cc, string from) {
+		public EmailListBoxItem(string id, string subject, string body, string to, string cc, string from, string datetime) {
 			this.EmailId = id;
 			this.Subject = subject;
 			this.Body = body;
 			this.To = to;
 			this.Cc = cc;
 			this.From = from;
+			this.DateTime = datetime;
 		}
 
 		public EmailListBoxItem() {	}
