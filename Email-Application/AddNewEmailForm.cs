@@ -53,7 +53,7 @@ namespace Email_Application {
 			addressTextbox.Text = "";
 			passwordTextbox.Text = "";
 			mailboxTextbox.Text = "";
-			serverCombobox.SelectedItem = 0;
+			serverCombobox.SelectedText = String.Empty;
 		}
 	}
 }
