@@ -25,6 +25,7 @@ namespace Email_Application {
 		public emailrForm() {
 			InitializeComponent();
 			// this works but a better way should be found.
+			// Control.Invoke is a better way of achieving this. As this can cause unexpected results. 
 			CheckForIllegalCrossThreadCalls = false;
 
 			_client = new MongoClient();
@@ -52,14 +53,14 @@ namespace Email_Application {
 
 			var getMailTimer = new System.Timers.Timer();
 			getMailTimer.Elapsed += new ElapsedEventHandler(MailTimer);
-			getMailTimer.Interval = 300000;
+			getMailTimer.Interval = 300000;	// 5 minutes.
 			getMailTimer.Enabled = true;
 
 			emailListContextMenu.MenuItems.Add(itemOpen);
 			emailListContextMenu.MenuItems.Add(itemReply);
 			emailListContextMenu.MenuItems.Add(itemDelete);
 			emailList.ContextMenu = emailListContextMenu;
-			QueryMongo();
+			GetDatabaseEmails();
 		}
 
 		public string MessageSubjectBox {
@@ -85,7 +86,7 @@ namespace Email_Application {
 				messageBox.DocumentText = item.Body;
 				subjectBox.Text = item.Subject;
 				
-				var replyForm = new ReplyForm(username, messageBox.DocumentText, subjectBox.Text, item.From, true);
+				var replyForm = new ReplyForm(username, messageBox.DocumentText, subjectBox.Text, item.From, server, true);
 				replyForm.Show();
 			}
 		}
@@ -137,6 +138,13 @@ namespace Email_Application {
 				}
 
 				client.Login(username, password);
+				//if(InvokeRequired) {
+				//	Invoke(new Action(() => {
+				//		emailCount += FetchMail.GetMessages(client, mailbox, progressBar, emailList);
+				//	}));
+				//} else {
+				//	emailCount += FetchMail.GetMessages(client, mailbox, progressBar, emailList);
+				//}
 				emailCount += FetchMail.GetMessages(client, mailbox, progressBar, emailList);
 				emailListCountLabel.Text = $"Items: {emailCount}";
 			}
@@ -145,7 +153,7 @@ namespace Email_Application {
 		/// <summary>
 		/// Return all of the items found in the database, and insert them into a custom listbox item.
 		/// </summary>
-		public async void QueryMongo() {
+		public async void GetDatabaseEmails() {
 			emailCount = 0;
 			var collection = _database.GetCollection<BsonDocument>("mycollection");
 			var filter = new BsonDocument();
@@ -265,7 +273,7 @@ namespace Email_Application {
 		}
 
 		private void replyButton_Click(object sender, EventArgs e) {
-			var replyForm = new ReplyForm(username, messageBox.DocumentText, subjectBox.Text, fromLabel.Text, true);
+			var replyForm = new ReplyForm(username, messageBox.DocumentText, subjectBox.Text, fromLabel.Text, server, true);
 			replyForm.Show();
 		}
 
@@ -333,7 +341,7 @@ namespace Email_Application {
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
 		private void forwardButton_Click(object sender, EventArgs e) {
-			var newEmail = new ReplyForm(username, messageBox.DocumentText, subjectBox.Text, fromLabel.Text, false);
+			var newEmail = new ReplyForm(username, messageBox.DocumentText, subjectBox.Text, fromLabel.Text, server, false);
 			newEmail.Show();
 		}
 
@@ -415,7 +423,7 @@ namespace Email_Application {
 		/// </summary>
 		/// <param name="enabled">bool of whether the buttons should be enabled or not</param>
 		private void EnableButtons(bool enabled) {
-			if(enabled) {
+			if (enabled) {
 				replyButton.Enabled = true;
 				forwardButton.Enabled = true;
 			} else {
