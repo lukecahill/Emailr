@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Timers;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Email_Application {
@@ -23,6 +24,8 @@ namespace Email_Application {
 
 		public emailrForm() {
 			InitializeComponent();
+			// this works but a better way should be found.
+			CheckForIllegalCrossThreadCalls = false;
 
 			_client = new MongoClient();
 			_database = _client.GetDatabase("test");
@@ -216,7 +219,8 @@ namespace Email_Application {
 		/// </summary>
 		private void fetchNewMailButton_Click(object sender, EventArgs e) {
 			fetchNewMailButton.Enabled = false;
-			GetCredentials();
+
+			Task.Factory.StartNew(() => GetCredentials());
 			fetchNewMailButton.Enabled = true;
 			progressBar.Value = 0;
 		}

@@ -25,6 +25,11 @@ namespace Email_Application {
 					return i;
 				} else {
 					Debug.WriteLine("No new mail has been found.");
+					//Invoke(new Action(() => {
+					//	bar.Value = bar.Maximum;
+					//	Thread.Sleep(2000);
+					//	bar.Value = 0;
+					//}));
 					bar.Value = bar.Maximum;
 					Thread.Sleep(2000);
 					bar.Value = 0;
