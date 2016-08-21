@@ -23,7 +23,7 @@ namespace Email_Application {
 		private void AddNewEmailAccount() {
 			var username = addressTextbox.Text;
 			var password = passwordTextbox.Text;
-			var server = serverTextbox.Text;
+			var server = GetServer();
 			var mailbox = mailboxTextbox.Text;
 			var collection = _database.GetCollection<BsonDocument>("emailcredentials");
 
@@ -34,6 +34,26 @@ namespace Email_Application {
 				{ "mailbox", mailbox }
 			};
 			collection.InsertOne(document);
+
+			ResetForm();
+		}
+
+		private string GetServer() {
+			var server = "";
+			if(serverCombobox.SelectedIndex == 0) {
+				server = "gmail";
+			} else if(serverCombobox.SelectedIndex == 1) {
+				server = "outlook";
+			}
+
+			return server;
+		}
+
+		private void ResetForm() {
+			addressTextbox.Text = "";
+			passwordTextbox.Text = "";
+			mailboxTextbox.Text = "";
+			serverCombobox.SelectedItem = 0;
 		}
 	}
 }
