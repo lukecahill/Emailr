@@ -6,21 +6,24 @@ using System.Windows.Forms;
 
 namespace Email_Application {
 	public partial class ReplyForm : Form {
-		string username, message, subject;
+		string username, message, subject, server;
 		private bool saved = true, reply = false;
+		Mail mail;
 
 		public ReplyForm() {
 			InitializeComponent();
 		}
 
-		public ReplyForm(string username, string message, string subject, string from, bool reply) {
+		public ReplyForm(string username, string message, string subject, string from, string server, bool reply) {
 			InitializeComponent();
 			this.username = username;
 			this.message = message;
 			this.subject = subject;
 			this.reply = reply;
+			this.server = server;
 
 			this.replyBox.Text = message;
+			this.mail = new Mail();
 
 			if(this.reply) {
 				this.subjectTextBox.Text = $"RE: {subject}";
@@ -31,16 +34,26 @@ namespace Email_Application {
 			} else {
 				this.subjectTextBox.Text = $"FW: {subject}";
 			}
-			
+		}
+		public void WhatServer() {
+			switch (this.server) {
+				case "google":
+					mail.SendMailGoogle(subjectTextBox.Text, replyBox.Text, replyToBox.Text, username);
+					break;
+
+				case "outlook":
+					mail.SendMailOutlook("", "", "", "");
+					break;
+			}
 		}
 
+
 		private void sendButton_Click(object sender, EventArgs e) {
-			var mail = new Mail();
 			var re = new Regex( @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
 			var valid = re.IsMatch(replyToBox.Text);
 
 			if(valid) {
-				mail.SendMail(subjectTextBox.Text, replyBox.Text, replyToBox.Text, username);
+				WhatServer();
 				Thread.Sleep(2000);
 				this.Close();
 			} else {
