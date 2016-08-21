@@ -192,7 +192,7 @@ namespace Email_Application {
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
 		private void fetchNewToolStripMenuItem_Click(object sender, EventArgs e) {
-			FetchMessages();
+			Task.Factory.StartNew(() => GetCredentials());
 		}
 
 		/// <summary>
@@ -219,7 +219,6 @@ namespace Email_Application {
 		/// </summary>
 		private void fetchNewMailButton_Click(object sender, EventArgs e) {
 			fetchNewMailButton.Enabled = false;
-
 			Task.Factory.StartNew(() => GetCredentials());
 			fetchNewMailButton.Enabled = true;
 			progressBar.Value = 0;
@@ -327,7 +326,9 @@ namespace Email_Application {
 
 		private void MailTimer(object source, ElapsedEventArgs e) {
 			if (fetchNewMailButton.InvokeRequired) {
-				fetchNewMailButton.Invoke(new MethodInvoker(delegate { GetCredentials(); }));
+				fetchNewMailButton.Invoke(new MethodInvoker(delegate {
+					Task.Factory.StartNew(() => GetCredentials());
+				}));
 			}
 		}
 
