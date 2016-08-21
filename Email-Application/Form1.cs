@@ -279,6 +279,10 @@ namespace Email_Application {
 			}
 		}
 
+		/// <summary>
+		/// Searches the emails stored in the MongoDb for the text the user has entered into the searchbox. 
+		/// Currently searches by the subject, body, and from fields in the database. 
+		/// </summary>
 		private async void SearchMessages() {
 			emailCount = 0;
 			var text = searchTextBox.Text;
@@ -305,25 +309,50 @@ namespace Email_Application {
 			}
 		}
 
+		/// <summary>
+		/// Shows the form where the user enters their reply/new email/forward.
+		/// </summary>
 		private void ShowNewEmailForm() {
 			var newEmail = new ReplyForm();
 			newEmail.Show();
 		}
 
+		/// <summary>
+		/// Calls the ShowNewEmailForm() functon.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void newEmailButton_Click(object sender, EventArgs e) {
 			ShowNewEmailForm();
 		}
 
+		/// <summary>
+		/// Shows the reply email form, but instead allows the user to forward the email
+		/// and so instantiates it with the username, subject, body, and who it is from.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void forwardButton_Click(object sender, EventArgs e) {
 			var newEmail = new ReplyForm(username, messageBox.DocumentText, subjectBox.Text, fromLabel.Text, false);
 			newEmail.Show();
 		}
 
+		/// <summary>
+		/// Shows the form where the user can add a new email address to save.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void addNewEmailToolStripMenuItem_Click(object sender, EventArgs e) {
 			var newEmailForm = new AddNewEmailForm();
 			newEmailForm.Show();
 		}
 
+		/// <summary>
+		/// Timer which is fired every 5 minutes to search the added emails for new emails.
+		/// This is automatic.
+		/// </summary>
+		/// <param name="source"></param>
+		/// <param name="e"></param>
 		private void MailTimer(object source, ElapsedEventArgs e) {
 			if (fetchNewMailButton.InvokeRequired) {
 				fetchNewMailButton.Invoke(new MethodInvoker(delegate {
@@ -332,6 +361,12 @@ namespace Email_Application {
 			}
 		}
 
+		/// <summary>
+		/// Sorts the emailList by either the subject, or the date/time of when the item was added to the database. 
+		/// The sort order is determined by the bool sorted. 
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void sortButton_Click(object sender, EventArgs e) {
 			var list = new List<EmailListBoxItem>();
 			if(sorted) {
@@ -349,10 +384,19 @@ namespace Email_Application {
 			}
 		}
 
+		/// <summary>
+		/// Calls the ShowNewEmailForm() function.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void newEmailToolStripMenuItem_Click(object sender, EventArgs e) {
 			ShowNewEmailForm();
 		}
 
+		/// <summary>
+		/// Gets the users email credentials which have been saved to the database.
+		/// Currently only returns one item from the database.
+		/// </summary>
 		private async void GetCredentials() {
 			var collection = _database.GetCollection<BsonDocument>("emailcredentials");
 			var filter = new BsonDocument();
@@ -366,6 +410,10 @@ namespace Email_Application {
 			FetchMessages();
 		}
 
+		/// <summary>
+		/// Toggles the reply & forward buttons.
+		/// </summary>
+		/// <param name="enabled">bool of whether the buttons should be enabled or not</param>
 		private void EnableButtons(bool enabled) {
 			if(enabled) {
 				replyButton.Enabled = true;
