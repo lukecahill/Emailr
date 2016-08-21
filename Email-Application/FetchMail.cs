@@ -1,11 +1,11 @@
 ﻿using AE.Net.Mail;
+using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using MongoDB.Driver;
-using MongoDB.Bson;
 
 namespace Email_Application {
 	public static class FetchMail {
@@ -25,11 +25,6 @@ namespace Email_Application {
 					return i;
 				} else {
 					Debug.WriteLine("No new mail has been found.");
-					//Invoke(new Action(() => {
-					//	bar.Value = bar.Maximum;
-					//	Thread.Sleep(2000);
-					//	bar.Value = 0;
-					//}));
 					bar.Value = bar.Maximum;
 					Thread.Sleep(2000);
 					bar.Value = 0;
