@@ -7,7 +7,7 @@ using System.Windows.Forms;
 namespace Email_Application {
 	public partial class ReplyForm : Form {
 		string username, message, subject;
-		private bool saved = false, reply = false;
+		private bool saved = true, reply = false;
 
 		public ReplyForm() {
 			InitializeComponent();
