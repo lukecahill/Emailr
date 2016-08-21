@@ -31,7 +31,11 @@ namespace Email_Application {
 			}
 		}
 
-		public bool SendMail(string subject, string body, string to, string from) {
+		public bool SendMailOutlook(string subject, string body, string to, string from) {
+			throw new NotImplementedException();
+		}
+
+		public bool SendMailGoogle(string subject, string body, string to, string from) {
 			try {
 				var mail = new MailMessage();
 				var smtpServer = new SmtpClient("smtp.gmail.com");
