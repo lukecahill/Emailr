@@ -13,7 +13,7 @@ namespace Email_Application {
 	public partial class emailrForm : Form {
 		
 		public int emailCount = 0;
-		string username = "", password = "", mailbox = "", server = "gmail";
+		string username = "", password = "", mailbox = "", server = "";
 		private bool emailOpen = false, sorted = false;
 
 		ContextMenu emailListContextMenu = new ContextMenu();
@@ -351,17 +351,12 @@ namespace Email_Application {
 		private async void GetCredentials() {
 			var collection = _database.GetCollection<BsonDocument>("emailcredentials");
 			var filter = new BsonDocument();
-			using (var cursor = await collection.FindAsync(filter)) {
-				while (await cursor.MoveNextAsync()) {
-					var batch = cursor.Current;
-					foreach (var document in batch) {
-						username = document["username"].ToString();
-						password = document["password"].ToString();
-						server = document["server"].ToString();
-						mailbox = document["mailbox"].ToString();
-					}
-				}
-			}
+			var cursor = await collection.Find(filter).SingleAsync();
+
+			username = cursor.AsBsonDocument[1].ToString();
+			password = cursor.AsBsonDocument[2].ToString();
+			server = cursor.AsBsonDocument[3].ToString();
+			mailbox = cursor.AsBsonDocument[4].ToString();
 
 			FetchMessages();
 		}
