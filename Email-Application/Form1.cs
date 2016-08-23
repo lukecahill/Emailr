@@ -17,11 +17,12 @@ namespace Email_Application {
 		string username = "", password = "", mailbox = "", server = "";
 		private bool emailOpen = false, sorted = false;
 
-		ContextMenu emailListContextMenu = new ContextMenu();
+		ContextMenu emailListContextMenu;
+		FetchMail _fetch;
 
 		protected static IMongoClient _client;
 		protected static IMongoDatabase _database;
-
+		
 		public emailrForm() {
 			InitializeComponent();
 			// this works but a better way should be found.
@@ -30,6 +31,8 @@ namespace Email_Application {
 
 			_client = new MongoClient();
 			_database = _client.GetDatabase("test");
+			emailListContextMenu = new ContextMenu();
+			_fetch = new FetchMail();
 
 			progressBar.Maximum = 100;
 			progressBar.Minimum = 0;
@@ -61,16 +64,6 @@ namespace Email_Application {
 			emailListContextMenu.MenuItems.Add(itemDelete);
 			emailList.ContextMenu = emailListContextMenu;
 			GetDatabaseEmails();
-		}
-
-		public string MessageSubjectBox {
-			get { return this.subjectBox.Text; }
-			set { this.subjectBox.Text = value; }
-		}
-
-		public string MessageBodyBox {
-			get { return this.messageBox.Text; }
-			set { this.messageBox.Text = value; }
 		}
 
 		/// <summary>
@@ -145,7 +138,7 @@ namespace Email_Application {
 				//} else {
 				//	emailCount += FetchMail.GetMessages(client, mailbox, progressBar, emailList);
 				//}
-				emailCount += FetchMail.GetMessages(client, mailbox, progressBar, emailList);
+				emailCount += _fetch.GetMessages(client, mailbox, progressBar, emailList);
 				emailListCountLabel.Text = $"Items: {emailCount}";
 			}
 		}
