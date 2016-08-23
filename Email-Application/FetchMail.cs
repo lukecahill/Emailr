@@ -8,12 +8,18 @@ using System.Threading;
 using System.Windows.Forms;
 
 namespace Email_Application {
-	public static class FetchMail {
-		
-		private static IMongoClient _client = new MongoClient();
-		static IMongoDatabase _database = _client.GetDatabase("test");
+	public class FetchMail {
 
-		public static int GetMessages(ImapClient client, string mailbox, ToolStripProgressBar bar, ListBox emailList) {
+		private static IMongoClient _client;
+		private static IMongoDatabase _database;
+
+		public FetchMail() {
+			_client = new MongoClient();
+			_database = _client.GetDatabase("test");
+		}
+
+		public int GetMessages(ImapClient client, string mailbox, ToolStripProgressBar bar, ListBox emailList) {
+			
 			if (client.IsConnected) {
 				client.SelectMailbox(mailbox);
 				var messages = GetUnseenMessages(client);
@@ -32,12 +38,13 @@ namespace Email_Application {
 			}
 			return 0;
 		}
-		public static Lazy<MailMessage>[] GetUnseenMessages(ImapClient client) {
+
+		public Lazy<MailMessage>[] GetUnseenMessages(ImapClient client) {
 			var messages = client.SearchMessages(SearchCondition.Unseen());
 			return messages;
 		}
 
-		public static int LoopThroughMessages(ImapClient client, Lazy<MailMessage>[] messages, int count, ToolStripProgressBar bar, ListBox emailList) {
+		public int LoopThroughMessages(ImapClient client, Lazy<MailMessage>[] messages, int count, ToolStripProgressBar bar, ListBox emailList) {
 			var collection = _database.GetCollection<BsonDocument>("mycollection");
 			var i = 0;
 			foreach (var item in messages) {
