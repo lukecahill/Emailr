@@ -32,7 +32,6 @@ namespace Email_Application {
 			_client = new MongoClient();
 			_database = _client.GetDatabase("test");
 			emailListContextMenu = new ContextMenu();
-			_fetch = new FetchMail();
 
 			progressBar.Maximum = 100;
 			progressBar.Minimum = 0;
@@ -131,6 +130,8 @@ namespace Email_Application {
 				}
 
 				client.Login(username, password);
+				_fetch = new FetchMail(client, progressBar, emailList);
+
 				//if(InvokeRequired) {
 				//	Invoke(new Action(() => {
 				//		emailCount += FetchMail.GetMessages(client, mailbox, progressBar, emailList);
@@ -138,7 +139,7 @@ namespace Email_Application {
 				//} else {
 				//	emailCount += FetchMail.GetMessages(client, mailbox, progressBar, emailList);
 				//}
-				emailCount += _fetch.GetMessages(client, mailbox, progressBar, emailList);
+				emailCount += _fetch.GetMessages(mailbox);
 				emailListCountLabel.Text = $"Items: {emailCount}";
 			}
 		}
