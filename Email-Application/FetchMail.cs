@@ -12,39 +12,46 @@ namespace Email_Application {
 
 		private static IMongoClient _client;
 		private static IMongoDatabase _database;
+		private ToolStripProgressBar _bar;
+		private ListBox _emailList;
+		ImapClient _imapClient;
 
-		public FetchMail() {
+		public FetchMail(ImapClient client, ToolStripProgressBar bar, ListBox emailList) {
 			_client = new MongoClient();
 			_database = _client.GetDatabase("test");
+			this._imapClient = client;
+
+			this._bar = bar;
+			this._emailList = emailList;
 		}
 
-		public int GetMessages(ImapClient client, string mailbox, ToolStripProgressBar bar, ListBox emailList) {
+		public int GetMessages(string mailbox) {
 			
-			if (client.IsConnected) {
-				client.SelectMailbox(mailbox);
-				var messages = GetUnseenMessages(client);
+			if (_imapClient.IsConnected) {
+				_imapClient.SelectMailbox(mailbox);
+				var messages = GetUnseenMessages();
 				var count = messages.Count();
 
 				if (count > 0) {
-					bar.Maximum = count;
-					var i = LoopThroughMessages(client, messages, count, bar, emailList);
+					_bar.Maximum = count;
+					var i = LoopThroughMessages(messages, count);
 					return i;
 				} else {
 					Debug.WriteLine("No new mail has been found.");
-					bar.Value = bar.Maximum;
+					_bar.Value = _bar.Maximum;
 					Thread.Sleep(2000);
-					bar.Value = 0;
+					_bar.Value = 0;
 				}
 			}
 			return 0;
 		}
 
-		public Lazy<MailMessage>[] GetUnseenMessages(ImapClient client) {
-			var messages = client.SearchMessages(SearchCondition.Unseen());
+		public Lazy<MailMessage>[] GetUnseenMessages() {
+			var messages = _imapClient.SearchMessages(SearchCondition.Unseen());
 			return messages;
 		}
 
-		public int LoopThroughMessages(ImapClient client, Lazy<MailMessage>[] messages, int count, ToolStripProgressBar bar, ListBox emailList) {
+		public int LoopThroughMessages(Lazy<MailMessage>[] messages, int count) {
 			var collection = _database.GetCollection<BsonDocument>("mycollection");
 			var i = 0;
 			foreach (var item in messages) {
@@ -71,8 +78,8 @@ namespace Email_Application {
 					document["datetime"].ToString()
 				);
 
-				emailList.Items.Add(email);
-				bar.PerformStep();
+				_emailList.Items.Add(email);
+				_bar.PerformStep();
 			}
 			//client.SetFlags(Flags.Seen, mailMessage);
 			Debug.WriteLine("Mail has been fetched successfully!");
