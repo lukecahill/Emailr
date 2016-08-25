@@ -35,6 +35,11 @@ namespace Email_Application {
 				this.subjectTextBox.Text = $"FW: {subject}";
 			}
 		}
+
+		/// <summary>
+		/// Decide what server should be used to send the mail. 
+		/// Currently support for GMail and Outlook.
+		/// </summary>
 		public void WhatServer() {
 			switch (this.server) {
 				case "google":
@@ -61,6 +66,11 @@ namespace Email_Application {
 			}
 		}
 
+		/// <summary>
+		/// Override the OnFormClosing method to ensure that the user wishes to close the form before closing. 
+		/// Cancels the action if the user chooses to cancel the action.
+		/// </summary>
+		/// <param name="e"></param>
 		protected override void OnFormClosing(FormClosingEventArgs e) {
 			base.OnFormClosing(e);
 
@@ -88,6 +98,11 @@ namespace Email_Application {
 			saved = false;
 		}
 
+		/// <summary>
+		/// Checks the users input of if they chose to close the application.
+		/// </summary>
+		/// <param name="code">Status code of the users choice</param>
+		/// <returns>int of 1 or 0.</returns>
 		private bool ExitApplication(int code) {
 			var close = true;
 			switch (code) {
@@ -101,6 +116,11 @@ namespace Email_Application {
 			return close;
 		}
 
+		/// <summary>
+		/// Checks that the user wishes to close the window before closing. Informs the user that they will lose any changes made.
+		/// </summary>
+		/// <param name="saved">bool of if there is any text entered by the user which could be lost</param>
+		/// <returns>int of 0 or 1 of the users choice of to cancel the close or not.</returns>
 		public int CheckExit(bool saved) {
 			if (saved) {
 				return 0;
