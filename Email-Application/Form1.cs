@@ -5,14 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Timers;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Email_Application {
 	public partial class emailrForm : Form {
-		
+
 		public int emailCount = 0;
 		string username = "", password = "", mailbox = "", server = "";
 		private bool emailOpen = false, sorted = false;
@@ -22,7 +21,7 @@ namespace Email_Application {
 
 		protected static IMongoClient _client;
 		protected static IMongoDatabase _database;
-		
+
 		public emailrForm() {
 			InitializeComponent();
 			// this works but a better way should be found.
@@ -33,6 +32,8 @@ namespace Email_Application {
 			_database = _client.GetDatabase("test");
 			emailListContextMenu = new ContextMenu();
 
+			CreateContextMenu();
+
 			progressBar.Maximum = 100;
 			progressBar.Minimum = 0;
 			progressBar.Step = 1;
@@ -40,28 +41,12 @@ namespace Email_Application {
 			replyButton.Enabled = false;
 			forwardButton.Enabled = false;
 
-			var itemOpen = new MenuItem();
-			itemOpen.Text = "&Open";
-
-			var itemDelete = new MenuItem();
-			itemDelete.Text = "&Delete";
-
-			var itemReply = new MenuItem();
-			itemReply.Text = "&Reply";
-
-			itemOpen.Click += ItemOpen_Click;
-			itemDelete.Click += ItemDelete_Click;
-			itemReply.Click += ItemReply_Click;
-
 			var getMailTimer = new System.Timers.Timer();
 			getMailTimer.Elapsed += new ElapsedEventHandler(MailTimer);
-			getMailTimer.Interval = 300000;	// 5 minutes.
+			getMailTimer.Interval = 300000; // 5 minutes.
 			getMailTimer.Enabled = true;
 
-			emailListContextMenu.MenuItems.Add(itemOpen);
-			emailListContextMenu.MenuItems.Add(itemReply);
-			emailListContextMenu.MenuItems.Add(itemDelete);
-			emailList.ContextMenu = emailListContextMenu;
+			// should be called last.
 			GetDatabaseEmails();
 		}
 
@@ -72,12 +57,12 @@ namespace Email_Application {
 		/// <param name="e"></param>
 		private void ItemReply_Click(object sender, EventArgs e) {
 			Debug.WriteLine("Not impletemed yet.");
-			
+
 			if (emailList.SelectedIndex >= 0) {
 				var item = (EmailListBoxItem)emailList.SelectedItem;
 				messageBox.DocumentText = item.Body;
 				subjectBox.Text = item.Subject;
-				
+
 				var replyForm = new ReplyForm(username, messageBox.DocumentText, subjectBox.Text, item.From, server, true);
 				replyForm.Show();
 			}
@@ -276,7 +261,7 @@ namespace Email_Application {
 		}
 
 		private void searchTextBox_KeyUp(object sender, KeyEventArgs e) {
-			if(e.KeyCode == Keys.Enter) {
+			if (e.KeyCode == Keys.Enter) {
 				SearchMessages();
 			}
 		}
@@ -371,14 +356,14 @@ namespace Email_Application {
 		/// <param name="e"></param>
 		private void sortButton_Click(object sender, EventArgs e) {
 			var list = new List<EmailListBoxItem>();
-			if(sorted) {
+			if (sorted) {
 				list = emailList.Items.Cast<EmailListBoxItem>().OrderBy(x => x.Subject).ToList();
 				sorted = false;
 			} else {
 				list = emailList.Items.Cast<EmailListBoxItem>().OrderBy(x => x.DateTime).ToList();
 				sorted = true;
 			}
-			
+
 			emailList.Items.Clear();
 
 			foreach (var item in list) {
@@ -424,6 +409,26 @@ namespace Email_Application {
 				replyButton.Enabled = false;
 				forwardButton.Enabled = false;
 			}
+		}
+
+		private void CreateContextMenu() {
+			var itemOpen = new MenuItem();
+			itemOpen.Text = "&Open";
+
+			var itemDelete = new MenuItem();
+			itemDelete.Text = "&Delete";
+
+			var itemReply = new MenuItem();
+			itemReply.Text = "&Reply";
+
+			itemOpen.Click += ItemOpen_Click;
+			itemDelete.Click += ItemDelete_Click;
+			itemReply.Click += ItemReply_Click;
+
+			emailListContextMenu.MenuItems.Add(itemOpen);
+			emailListContextMenu.MenuItems.Add(itemReply);
+			emailListContextMenu.MenuItems.Add(itemDelete);
+			emailList.ContextMenu = emailListContextMenu;
 		}
 	}
 }
