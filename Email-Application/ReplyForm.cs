@@ -57,12 +57,27 @@ namespace Email_Application {
 			var re = new Regex( @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
 			var valid = re.IsMatch(replyToBox.Text);
 
+			if(!CheckSubject()) {
+				var result = MessageBox.Show("There is no subject for this email.\nDo you want to continue sending?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+				if(result != DialogResult.Yes) {
+					return;
+				}
+			}
+
 			if(valid) {
 				WhatServer();
-				Thread.Sleep(2000);
+				saved = true;	// mail has been sent so this can be closed.
 				this.Close();
 			} else {
 				MessageBox.Show("Invalid email address entered!");
+			}
+		}
+
+		private bool CheckSubject() {
+			if(!String.IsNullOrEmpty(subjectTextBox.Text)) {
+				return true;
+			} else {
+				return false;
 			}
 		}
 
