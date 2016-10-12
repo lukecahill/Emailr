@@ -16,6 +16,12 @@ namespace Email_Application {
 		private ListBox _emailList;
 		ImapClient _imapClient;
 
+		/// <summary>
+		/// Constructor for the class FetchMail
+		/// </summary>
+		/// <param name="client">ImapClient variable, of the client being connected too</param>
+		/// <param name="bar">ToolStripMenuBar which is used to update the progress bar on the main form.</param>
+		/// <param name="emailList">ListBox which is populated with the emails found in the database.</param>
 		public FetchMail(ImapClient client, ToolStripProgressBar bar, ListBox emailList) {
 			_client = new MongoClient();
 			_database = _client.GetDatabase("test");
@@ -25,6 +31,11 @@ namespace Email_Application {
 			this._emailList = emailList;
 		}
 
+		/// <summary>
+		/// Selects the mailbox to search and gets any new messages. Updates the count of the messages found. 
+		/// </summary>
+		/// <param name="mailbox">String - The mailbox to search for new messages</param>
+		/// <returns></returns>
 		public int GetMessages(string mailbox) {
 			
 			if (_imapClient.IsConnected) {
@@ -34,7 +45,7 @@ namespace Email_Application {
 
 				if (count > 0) {
 					_bar.Maximum = count;
-					var i = LoopThroughMessages(messages, count);
+					var i = LoopThroughMessages(messages);
 					return i;
 				} else {
 					Debug.WriteLine("No new mail has been found.");
@@ -46,12 +57,21 @@ namespace Email_Application {
 			return 0;
 		}
 
+		/// <summary>
+		/// Finds the unopened messages in the mailbox. 
+		/// </summary>
+		/// <returns>Lazy<MailMessage>[] - array containing the messages found</returns>
 		public Lazy<MailMessage>[] GetUnseenMessages() {
 			var messages = _imapClient.SearchMessages(SearchCondition.Unseen());
 			return messages;
 		}
 
-		public int LoopThroughMessages(Lazy<MailMessage>[] messages, int count) {
+		/// <summary>
+		/// Iterates through the messages which are found. Parses them into the BsonDocuments and adds this to the email list box. Updates the progress bar as updating.
+		/// </summary>
+		/// <param name="messages">Lazy<MailMessage>[] - array of the found unread messages.</param>
+		/// <returns></returns>
+		public int LoopThroughMessages(Lazy<MailMessage>[] messages) {
 			var collection = _database.GetCollection<BsonDocument>("mycollection");
 			var i = 0;
 			foreach (var item in messages) {
