@@ -56,7 +56,6 @@ namespace Email_Application {
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
 		private void ItemReply_Click(object sender, EventArgs e) {
-			Debug.WriteLine("Not impletemed yet.");
 
 			if (emailList.SelectedIndex >= 0) {
 				var item = (EmailListBoxItem)emailList.SelectedItem;
@@ -251,15 +250,31 @@ namespace Email_Application {
 			}
 		}
 
+		/// <summary>
+		/// Handler for showing the reply form when the reply button is clicked.
+		/// Constucts the reply form and calls the show method on this form. 
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void replyButton_Click(object sender, EventArgs e) {
 			var replyForm = new ReplyForm(username, messageBox.DocumentText, subjectBox.Text, fromLabel.Text, server, true);
 			replyForm.Show();
 		}
 
+		/// <summary>
+		/// Calls the search email function which then searches the database for the matching string. 
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void searchEmailButton_Click(object sender, EventArgs e) {
 			SearchMessages();
 		}
 
+		/// <summary>
+		/// Handler for if the key pressed is the return key. This then searches the messages.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void searchTextBox_KeyUp(object sender, KeyEventArgs e) {
 			if (e.KeyCode == Keys.Enter) {
 				SearchMessages();
@@ -349,12 +364,19 @@ namespace Email_Application {
 		}
 
 		/// <summary>
-		/// Sorts the emailList by either the subject, or the date/time of when the item was added to the database. 
-		/// The sort order is determined by the bool sorted. 
+		/// Calls the SortEmails function which sorts the emails in the list box.
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
 		private void sortButton_Click(object sender, EventArgs e) {
+			SortEmails();
+		}
+
+		/// <summary>
+		/// Sorts the emails - this is sorted by either the subject, or the date/time of when the item was added to the database.
+		/// Sort order is determined by the bool 'sorted'
+		/// </summary>
+		private void SortEmails() {
 			var list = new List<EmailListBoxItem>();
 			if (sorted) {
 				list = emailList.Items.Cast<EmailListBoxItem>().OrderBy(x => x.Subject).ToList();
@@ -411,6 +433,9 @@ namespace Email_Application {
 			}
 		}
 
+		/// <summary>
+		/// Creates the context menu which is displayed when the user right clicks an email in the list.
+		/// </summary>
 		private void CreateContextMenu() {
 			var itemOpen = new MenuItem();
 			itemOpen.Text = "&Open";
