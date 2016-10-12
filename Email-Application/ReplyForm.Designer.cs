@@ -58,6 +58,7 @@
 			this.replyBox.TabIndex = 0;
 			this.replyBox.Text = "";
 			this.replyBox.TextChanged += new System.EventHandler(this.replyBox_TextChanged);
+			this.replyBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.replyBox_KeyDown);
 			// 
 			// subjectTextBox
 			// 

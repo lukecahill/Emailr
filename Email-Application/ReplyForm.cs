@@ -54,19 +54,23 @@ namespace Email_Application {
 
 
 		private void sendButton_Click(object sender, EventArgs e) {
-			var re = new Regex( @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+			SendMail();
+		}
+
+		private void SendMail() {
+			var re = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
 			var valid = re.IsMatch(replyToBox.Text);
 
-			if(!CheckSubject()) {
+			if (!CheckSubject()) {
 				var result = MessageBox.Show("There is no subject for this email.\nDo you want to continue sending?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-				if(result != DialogResult.Yes) {
+				if (result != DialogResult.Yes) {
 					return;
 				}
 			}
 
-			if(valid) {
+			if (valid) {
 				WhatServer();
-				saved = true;	// mail has been sent so this can be closed.
+				saved = true;   // mail has been sent so this can be closed.
 				this.Close();
 			} else {
 				MessageBox.Show("Invalid email address entered!");
@@ -103,6 +107,13 @@ namespace Email_Application {
 
 		private void replyBox_TextChanged(object sender, EventArgs e) {
 			saved = false;
+		}
+
+		private void replyBox_KeyDown(object sender, KeyEventArgs e) {
+			if(e.KeyCode == Keys.Enter && Control.ModifierKeys == Keys.Control) {
+				e.Handled = false;
+				SendMail();
+			}
 		}
 
 		private void subjectTextBox_TextChanged(object sender, EventArgs e) {
